@@ -1,0 +1,22 @@
+generated: '2026-07-18'
+method: searched
+source: openapi/capchase-pay-openapi.yml
+docs: https://capchase.readme.io/reference/authentication
+credential_request: pay@capchase.com
+notes: >-
+  Capchase Pay uses HTTP Basic authentication. The username is the clientId and the
+  password is the clientSecret, sent as `Authorization: Basic base64(clientId:clientSecret)`.
+  Credentials are issued on request (pay@capchase.com) and the Playground environment
+  uses a separate set of keys. Unauthorized requests return 401. There is no OAuth,
+  API-key header, or scope surface.
+summary:
+  types:
+  - http
+schemes:
+- name: basicAuth
+  type: http
+  scheme: basic
+  description: 'Basic auth: username=clientId, password=clientSecret. Request credentials at
+    pay@capchase.com.'
+  sources:
+  - openapi/capchase-pay-openapi.yml
