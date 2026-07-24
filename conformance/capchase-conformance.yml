@@ -1,0 +1,35 @@
+generated: '2026-07-18'
+method: searched
+source: openapi/capchase-pay-openapi.yml
+standards:
+- id: http-basic-auth
+  conforms: true
+  evidence: openapi securityScheme type http scheme basic
+- id: oauth2
+  conforms: false
+- id: openid-connect
+  conforms: false
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: error responses use a custom {error_code, error_message} envelope, not application/problem+json
+- id: rfc9110-status-codes
+  conforms: true
+  evidence: docs assert standard HTTP status codes (200/201/204/400/401/403/404/409/412/422/429/500)
+- id: offset-limit-pagination
+  conforms: true
+  evidence: GET /pay/subscriptions supports offset + limit query params
+- id: idempotency-keys
+  conforms: false
+  evidence: no idempotency-key header/param documented
+- id: rfc8594-sunset-header
+  conforms: false
+- id: soc2
+  conforms: true
+  evidence: SOC 2 compliance badge published on capchase.com
+- id: gdpr
+  conforms: true
+  evidence: GDPR compliance badge published on capchase.com
+compliance_program:
+  published: true
+  certifications: [SOC 2, GDPR]
+  source: https://www.capchase.com/

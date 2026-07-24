@@ -1,0 +1,1116 @@
+openapi: 3.0.0
+info:
+  title: Capchase Pay
+  description: Capchase Pay API definition
+  version: 2.0.0
+  contact: {}
+servers:
+- url: https://universe.capchase.com/api/v2
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: 'Basic auth: username=clientId, password=clientSecret. Request credentials at pay@capchase.com.'
+  schemas:
+    CreateBuyerApiDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Apple
+          description: Name of the buyer company
+        legal_name:
+          type: string
+          example: Apple Inc.
+          description: Legal name of the buyer company
+        website:
+          type: string
+          example: www.apple.com
+          description: Website URL of the buyer company
+        tax_id:
+          type: string
+          example: '123456789'
+          description: Tax ID number
+        country:
+          type: string
+          example: USA
+          enum:
+          - USA
+          - GBR
+          - ESP
+          - AUS
+          - AUT
+          - BEL
+          - CAN
+          - DNK
+          - EST
+          - FIN
+          - FRA
+          - DEU
+          - IRL
+          - ITA
+          - LVA
+          - LTU
+          - NLD
+          - NOR
+          - SWE
+          - other
+          description: Country ISO-3166-1 alpha-3 code
+        state:
+          type: string
+          example: CA
+          enum:
+          - AL
+          - AK
+          - AS
+          - AZ
+          - AR
+          - CA
+          - CO
+          - CT
+          - DE
+          - DC
+          - FM
+          - FL
+          - GA
+          - GU
+          - HI
+          - ID
+          - IL
+          - IN
+          - IA
+          - KS
+          - KY
+          - LA
+          - ME
+          - MH
+          - MD
+          - MA
+          - MI
+          - MN
+          - MS
+          - MO
+          - MT
+          - NE
+          - NV
+          - NH
+          - NJ
+          - NM
+          - NY
+          - NC
+          - ND
+          - MP
+          - OH
+          - OK
+          - OR
+          - PW
+          - PA
+          - PR
+          - RI
+          - SC
+          - SD
+          - TN
+          - TX
+          - UT
+          - VT
+          - VI
+          - VA
+          - WA
+          - WV
+          - WI
+          - WY
+          - CA-AB
+          - CA-BC
+          - CA-MB
+          - CA-NB
+          - CA-NL
+          - CA-NS
+          - CA-ON
+          - CA-PE
+          - CA-QC
+          - CA-SK
+          - CA-NT
+          - CA-NU
+          - CA-YT
+          - AU-ACT
+          - AU-NSW
+          - AU-NT
+          - AU-QLD
+          - AU-SA
+          - AU-TAS
+          - AU-VIC
+          - AU-WA
+          description: State (US and Canada only)
+          nullable: true
+        city:
+          type: string
+          example: San Francisco
+          description: City
+        address_line1:
+          type: string
+          example: 1 Infinite Loop
+          description: Address line 1
+        address_line2:
+          type: string
+          example: Suite 100
+          description: Address line 2
+        postal_code:
+          type: string
+          example: '95014'
+          description: Postal code
+        vendor_notification_emails:
+          description: Vendor notification email addresses
+          example:
+          - billing@example.com
+          - finance@example.com
+          type: array
+          items:
+            type: string
+            format: email
+        external_id:
+          type: string
+          description: External ID to identify the buyer in your system. You can use it to reconcile buyers
+            with your records.
+        metadata:
+          type: object
+          description: Metadata of the buyer. A JSON object to store any additional information about
+            the buyer.
+      required:
+      - name
+      - legal_name
+      - website
+      - country
+      - city
+      - address_line1
+      - postal_code
+    BuyerTerms:
+      type: object
+      properties:
+        min_amount:
+          type: number
+          nullable: true
+          description: Minimum amount of the subscriptions created for this buyer
+        max_amount:
+          type: number
+          nullable: true
+          description: Maximum amount of the subscriptions created for this buyer
+        max_duration:
+          type: number
+          nullable: true
+          description: Maximum duration of the subscriptions created for this buyer
+        expiration_date:
+          format: date-time
+          type: string
+          nullable: true
+          description: Expiration date of these terms
+        available_credit_limit:
+          type: number
+          nullable: true
+          description: Available credit limit for the buyer in the smallest currency unit (e.g. cents).
+            Null when not available.
+        requested_amount:
+          type: number
+          nullable: true
+          description: Originally-requested amount captured at qualification time, in the smallest currency
+            unit (e.g. cents). Null when the buyer was qualified without a deal-size estimate.
+        limit_raise_request_status:
+          type: string
+          nullable: true
+          description: Status of the latest LimitRaiseRequest for this (buyer, vendor) pair, if any. One
+            of PENDING, APPROVED, FINANCIALS_REQUIRED, REJECTED. Null when there is no request on file.
+      required:
+      - min_amount
+      - max_amount
+      - max_duration
+      - expiration_date
+      - requested_amount
+    BuyerResponseDto:
+      type: object
+      properties:
+        id:
+          type: string
+          description: UUID of the buyer
+        name:
+          type: string
+          description: Name of the buyer
+        legal_name:
+          type: string
+          description: Legal name of the buyer, used for KYB and compliance checks
+        tax_id:
+          type: string
+          nullable: true
+          description: Buyer's tax id
+        website:
+          type: string
+          nullable: true
+          description: Buyer's website
+        kyb_status:
+          type: string
+          description: Status of the compliance checks. Currently, the retrieved statuses are APPROVED,
+            REJECTED and PENDING
+        kyb_rejected_reasons:
+          nullable: true
+          description: Rejection reasons of the compliance checks, in a readable format.
+          type: array
+          items:
+            type: string
+        created_at:
+          format: date-time
+          type: string
+          description: Creation date in ISO-8601
+        country_iso3:
+          type: string
+          description: Country ISO-3166-1 alpha-3 code of the buyer
+        state:
+          type: string
+          nullable: true
+          description: State, only applicable to US and Canada
+        city:
+          type: string
+          nullable: true
+          description: City of the buyer
+        address_line1:
+          type: string
+          nullable: true
+          description: First line of the buyer's address
+        address_line2:
+          type: string
+          nullable: true
+          description: Second line of the buyer's address
+        postal_code:
+          type: string
+          nullable: true
+          description: Postal code of the buyer
+        currency:
+          type: string
+          description: Currency of the buyer
+        status:
+          type: string
+          nullable: true
+          description: Status of the buyer in our system. It can be ACTIVE or BLOCKED
+        external_id:
+          type: string
+          nullable: true
+          description: External ID of the buyer. You can use it to identify a buyer in your system.
+        metadata:
+          type: object
+          nullable: true
+          description: Metadata of the buyer. It is a JSON object that you can use to store any additional
+            information about the buyer.
+        terms:
+          description: Terms of the buyer
+          allOf:
+          - $ref: '#/components/schemas/BuyerTerms'
+        credit_quality:
+          type: string
+          nullable: true
+          description: 'Credit quality tier of the buyer, derived from credit rating. Possible values:
+            "preferred", "qualified", "declined", or null'
+      required:
+      - id
+      - name
+      - legal_name
+      - tax_id
+      - website
+      - kyb_status
+      - kyb_rejected_reasons
+      - created_at
+      - country_iso3
+      - state
+      - city
+      - address_line1
+      - address_line2
+      - postal_code
+      - currency
+      - status
+      - external_id
+      - metadata
+      - terms
+    CreateNewSubscriptionParametricItemDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 12 seats
+          description: Name of the item
+        description:
+          type: string
+          example: 10$/mo per seat
+          description: Description of the item
+        amount:
+          type: number
+          minimum: 1
+          example: 800000
+          description: Amount of the item, in cents
+        type:
+          type: string
+          enum:
+          - PARAMETRIC
+          description: The type of the subscription item schedule. Right now, only PARAMETRIC is supported.
+          example: PARAMETRIC
+        start_date:
+          format: date-time
+          type: string
+          example: '2024-11-22'
+          description: Date of the first charge
+        period:
+          type: string
+          enum:
+          - ONE_TIME
+          - MONTHS
+          - QUARTERS
+          - SEMI_ANNUAL
+          - ANNUAL
+          description: The frequency of the subscription item schedule. It can be ONE_TIME, MONTHS, or
+            QUARTERS
+          example: MONTHS
+        duration:
+          type: number
+          minimum: 1
+          example: 12
+          description: Duration of the subscription, in the period specified
+        net_term:
+          enum:
+          - NET_30
+          - NET_60
+          - NET_90
+          - NET_120
+          - NET_150
+          - NET_180
+          type: string
+          example: NET_30
+          description: Net terms of the item. Valid values are NET_30, NET_60, NET_90, NET_120, NET_150
+            and NET_180.
+      required:
+      - name
+      - amount
+      - type
+      - start_date
+      - period
+      - duration
+    CreateNewSubscriptionParametricDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: MyCompany <> MyBuyer - 12 Months pro plan
+          description: Name of the subscription
+        description:
+          type: string
+          example: Yearly pro plan for 12 ppl + 2 admin seats + onboarding
+          description: Description of the subscription. You can add any extra info that helps you and
+            your customer to identify the subscription.
+        buyer_id:
+          type: string
+          example: 11111111-2222-3333-8444-555555555555
+          description: Id of the buyer of the subscription
+        items:
+          minItems: 1
+          maxItems: 100
+          description: Subscription items to be created.
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateNewSubscriptionParametricItemDto'
+        vendor_notification_emails:
+          example:
+          - accounting@your_company.com
+          description: Email addresses where you will receive the notifications related to the subscription
+          type: array
+          items:
+            type: string
+        buyer_notification_emails:
+          example:
+          - buyer@buyer_company.com
+          description: Email addresses where your buyer receive the notifications related to the subscription
+          type: array
+          items:
+            type: string
+        external_id:
+          type: string
+          example: ABC00014
+          description: Any internal identifier you want to use to track the subscription in your system
+        metadata:
+          type: object
+          description: External metadata to be used by systems outside Capchase, like an external API.
+      required:
+      - name
+      - description
+      - buyer_id
+      - items
+    SubscriptionItemVo:
+      type: object
+      properties:
+        id:
+          type: string
+          example: Basic Plan
+          description: Name of the subscription item
+        name:
+          type: string
+          example: Basic Plan
+          description: Name of the subscription item
+        description:
+          type: string
+          example: This is a basic subscription plan.
+          description: Description of the subscription item
+          nullable: true
+        amount:
+          type: number
+          example: 1000
+          description: Amount of the subscription item. This is the original amount provided, without
+            any fees.
+      required:
+      - id
+      - name
+      - amount
+    MoneyVo:
+      type: object
+      properties:
+        amount:
+          type: number
+          description: The amount in BIPS with precision defined by the precision property
+          example: 100000
+        currency:
+          type: string
+          description: Currency
+          example: USD
+          enum:
+          - AED
+          - AFN
+          - ALL
+          - AMD
+          - ANG
+          - AOA
+          - ARS
+          - AUD
+          - AWG
+          - AZN
+          - BAM
+          - BBD
+          - BDT
+          - BGN
+          - BHD
+          - BIF
+          - BMD
+          - BND
+          - BOB
+          - BOV
+          - BRL
+          - BSD
+          - BTN
+          - BWP
+          - BYN
+          - BZD
+          - CAD
+          - CDF
+          - CHE
+          - CHF
+          - CHW
+          - CLF
+          - CLP
+          - CNY
+          - COP
+          - COU
+          - CRC
+          - CUC
+          - CUP
+          - CVE
+          - CZK
+          - DJF
+          - DKK
+          - DOP
+          - DZD
+          - EGP
+          - ERN
+          - ETB
+          - EUR
+          - FJD
+          - FKP
+          - GBP
+          - GEL
+          - GHS
+          - GIP
+          - GMD
+          - GNF
+          - GTQ
+          - GYD
+          - HKD
+          - HNL
+          - HRK
+          - HTG
+          - HUF
+          - IDR
+          - ILS
+          - INR
+          - IQD
+          - IRR
+          - ISK
+          - JMD
+          - JOD
+          - JPY
+          - KES
+          - KGS
+          - KHR
+          - KMF
+          - KPW
+          - KRW
+          - KWD
+          - KYD
+          - KZT
+          - LAK
+          - LBP
+          - LKR
+          - LRD
+          - LSL
+          - LYD
+          - MAD
+          - MDL
+          - MGA
+          - MKD
+          - MMK
+          - MNT
+          - MOP
+          - MRU
+          - MUR
+          - MVR
+          - MWK
+          - MXN
+          - MXV
+          - MYR
+          - MZN
+          - NAD
+          - NGN
+          - NIO
+          - NOK
+          - NPR
+          - NZD
+          - OMR
+          - PAB
+          - PEN
+          - PGK
+          - PHP
+          - PKR
+          - PLN
+          - PYG
+          - QAR
+          - RON
+          - RSD
+          - RUB
+          - RWF
+          - SAR
+          - SBD
+          - SCR
+          - SDG
+          - SEK
+          - SGD
+          - SHP
+          - SLL
+          - SOS
+          - SRD
+          - SSP
+          - STN
+          - SVC
+          - SYP
+          - SZL
+          - THB
+          - TJS
+          - TMT
+          - TND
+          - TOP
+          - TRY
+          - TTD
+          - TWD
+          - TZS
+          - UAH
+          - UGX
+          - USD
+          - USN
+          - UYI
+          - UYU
+          - UYW
+          - UZS
+          - VES
+          - VND
+          - VUV
+          - WST
+          - XAF
+          - XAG
+          - XAU
+          - XBA
+          - XBB
+          - XBC
+          - XBD
+          - XCD
+          - XDR
+          - XOF
+          - XPD
+          - XPF
+          - XPT
+          - XSU
+          - XTS
+          - XUA
+          - XXX
+          - YER
+          - ZAR
+          - ZMW
+          - ZWL
+        precision:
+          type: number
+          description: Precision of the amount
+          example: 2
+      required:
+      - amount
+      - currency
+      - precision
+    OverallBreakdownVo:
+      type: object
+      properties:
+        buyer_gross:
+          $ref: '#/components/schemas/MoneyVo'
+      required:
+      - buyer_gross
+    FeeBipsVo:
+      type: object
+      properties:
+        fee:
+          type: number
+        bips:
+          type: number
+        precision:
+          type: number
+      required:
+      - fee
+      - bips
+      - precision
+    FeeBreakdownVo:
+      type: object
+      properties:
+        total:
+          $ref: '#/components/schemas/FeeBipsVo'
+      required:
+      - total
+    AmountBreakdownVo:
+      type: object
+      properties:
+        gross:
+          $ref: '#/components/schemas/MoneyVo'
+      required:
+      - gross
+    SubscriptionInstallmentVo:
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/AmountBreakdownVo'
+        date:
+          type: string
+          example: '2025-05-22T10:09:25.160Z'
+          description: Due date of the installment/balance
+          nullable: true
+      required:
+      - amount
+      - date
+    SubscriptionBreakdownVo:
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/OverallBreakdownVo'
+        fee:
+          $ref: '#/components/schemas/FeeBreakdownVo'
+        balances:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubscriptionInstallmentVo'
+        installments:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubscriptionInstallmentVo'
+      required:
+      - amount
+      - fee
+      - balances
+      - installments
+    SubscriptionApiVo:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 123e4567-e89b-12d3-a456-426614174000
+          description: Subscription ID
+        name:
+          type: string
+          example: Subscription Name
+          description: Name of the subscription
+        description:
+          type: string
+          example: Description of the subscription
+          description: Description of the subscription
+        vendor_id:
+          type: string
+          example: vendor-123
+          description: Vendor ID
+        buyer_id:
+          type: string
+          example: buyer-456
+          description: Buyer ID
+        amount:
+          type: number
+          example: 1000
+          description: Amount in the smallest currency unit
+        amount_net:
+          type: number
+          example: 900
+          description: Net amount in the smallest currency unit
+        amount_fee:
+          type: number
+          example: 100
+          description: Fee amount in the smallest currency unit
+        currency:
+          type: string
+          example: USD
+          description: Currency code
+        buyer_notification_emails:
+          example:
+          - email@example.com
+          description: Notification emails
+          type: array
+          items:
+            type: string
+        vendor_notification_emails:
+          example:
+          - email@example.com
+          description: Notification emails
+          type: array
+          items:
+            type: string
+        payment_method:
+          type: string
+          example: CREDIT_CARD
+          description: Selected payment method. It might be null if the payment link has not yet been
+            completed by the buyer.
+          enum:
+          - CREDIT_CARD
+          - BANK_ACCOUNT
+          - WIRE
+          - STRIPE_UPFRONT
+          - CHECK
+        allowed_payment_methods:
+          type: array
+          example:
+          - CREDIT_CARD
+          description: Allowed payment methods
+          items:
+            type: string
+            enum:
+            - CREDIT_CARD
+            - BANK_ACCOUNT
+            - WIRE
+            - STRIPE_UPFRONT
+            - CHECK
+        external_id:
+          type: string
+          example: external-789
+          description: External ID
+          nullable: true
+        metadata:
+          type: object
+          description: Metadata associated with the subscription
+          nullable: true
+        payment_link:
+          type: string
+          example: http://example.com/link/HtJxlu7N
+          description: Payment link. In the endpoints that retrieve a single order, this link will be
+            shortened. In the endpoints that list multiple orders, it won't (link + token as query parameter)
+        finance_status:
+          type: string
+          example: pending
+          description: Finance status
+          nullable: true
+          enum:
+          - PAYMENT_LINK_CREATED
+          - PAYMENT_LINK_OPENED
+          - COMPANY_DETAILS_COMPLETED
+          - PAYMENT_METHOD_ADDED
+          - AGREEMENTS_SIGNED
+        pl_progress_date:
+          type: string
+          example: '2025-07-22T10:09:25.160Z'
+          description: PL progress date
+          nullable: true
+        items:
+          description: Items in the subscription
+          type: array
+          items:
+            $ref: '#/components/schemas/SubscriptionItemVo'
+        breakdown:
+          description: Breakdown of the subscription
+          allOf:
+          - $ref: '#/components/schemas/SubscriptionBreakdownVo'
+        status:
+          type: string
+          example: ACTIVE
+          description: Status of the subscription
+          enum:
+          - DRAFT
+          - READY
+          - BUYER_ACCEPTED
+          - APPROVED
+          - CANCELED
+          - DENIED
+          - ACTIVE
+          - STALE
+          - ERROR
+          - FINISHED
+          - ARCHIVED
+          - DELETED
+        created_at:
+          type: string
+          example: '2025-05-22T10:09:25.160Z'
+          description: Creation date and time (UTC, ISO 8601)
+        updated_at:
+          type: string
+          example: '2025-06-22T10:09:25.160Z'
+          description: Last update date and time (UTC, ISO 8601)
+      required:
+      - id
+      - name
+      - vendor_id
+      - buyer_id
+      - amount
+      - amount_net
+      - amount_fee
+      - currency
+      - external_id
+      - status
+      - created_at
+      - updated_at
+    InstalmentReceiptResponseVo:
+      type: object
+      properties:
+        url:
+          type: string
+          description: Signed link to the receipt PDF for the returned instalment.
+      required:
+      - url
+    UpdateBuyerExternalIdRequestDto:
+      type: object
+      properties:
+        external_id:
+          type: string
+          description: External ID of the buyer
+      required:
+      - external_id
+paths:
+  /pay/buyers:
+    post:
+      description: Creates a new buyer company
+      operationId: PayExternalController_createBuyer
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBuyerApiDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuyerResponseDto'
+      summary: Create buyer
+      tags:
+      - Pay
+  /pay/subscriptions:
+    post:
+      description: Creates a new subscription
+      operationId: PayExternalController_createSubscription
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateNewSubscriptionParametricDto'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionApiVo'
+      summary: Create subscription
+      tags:
+      - Pay
+    get:
+      description: Returns subscriptions for the authenticated vendor, with optional filters.
+      operationId: PayExternalController_listSubscriptions
+      parameters:
+      - name: buyer_id
+        required: false
+        in: query
+        description: Filter by buyer company ID
+        schema:
+          type: string
+      - name: offset
+        required: false
+        in: query
+        description: Pagination offset
+        schema:
+          minimum: 0
+          default: 0
+          type: number
+      - name: limit
+        required: false
+        in: query
+        description: Max results to return
+        schema:
+          minimum: 1
+          default: 100
+          type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SubscriptionApiVo'
+      summary: List subscriptions
+      tags:
+      - Pay
+  /pay/subscriptions/{key}:
+    delete:
+      description: Deletes a subscription. This action cannot be undone. Subscriptions can only be archived
+        if they are in DRAFT, READY, BUYER_ACCEPTED, APPROVED, ACTIVE and ERROR statuses, and debits and
+        credits might not have been collected/sent or have been reversed.
+      operationId: PayExternalController_delete
+      parameters:
+      - name: key
+        required: true
+        in: path
+        description: Key of the subscription to be deleted
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      summary: Archive subscription
+      tags:
+      - Pay
+  /pay/buyers/{id}:
+    get:
+      description: Retrieves the details of a buyer
+      operationId: PayExternalController_getBuyer
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Id of the buyer
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuyerResponseDto'
+      summary: Get buyer
+      tags:
+      - Pay
+  /pay/subscriptions/{key}/instalment/{instalmentKey}/receipt:
+    get:
+      description: Returns a signed link to the receipt PDF for a given returned instalment of a subscription.
+      operationId: PayExternalController_getInstalmentReceipt
+      parameters:
+      - name: key
+        required: true
+        in: path
+        description: Key of the subscription
+        schema:
+          type: string
+      - name: instalmentKey
+        required: true
+        in: path
+        description: Key of the instalment
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstalmentReceiptResponseVo'
+      summary: Get instalment receipt
+      tags:
+      - Pay
+  /pay/subscriptions/{id}:
+    get:
+      description: Retrieves the details of a subscription
+      operationId: PayExternalController_getSubscription
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Id of the subscription
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionApiVo'
+      summary: Get subscription
+      tags:
+      - Pay
+  /pay/buyers/{id}/update-external-id:
+    patch:
+      description: Updates the external Id of a buyer
+      operationId: PayExternalController_updateBuyerExternalId
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Id of the buyer
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBuyerExternalIdRequestDto'
+      responses:
+        '200':
+          description: ''
+      summary: Update buyer external Id
+      tags:
+      - Pay
+  /pay/buyers/{id}/renew-qualification:
+    post:
+      description: Renews the qualification of a buyer
+      operationId: PayExternalController_updateBuyerQualification
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: Id of the buyer
+        schema:
+          type: string
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BuyerResponseDto'
+      summary: Renew buyer qualification
+      tags:
+      - Pay
+security:
+- basicAuth: []

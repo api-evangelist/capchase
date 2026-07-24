@@ -1,0 +1,57 @@
+generated: '2026-07-18'
+method: searched
+source: https://capchase.readme.io/reference/status-codes
+docs: https://capchase.readme.io/reference/errors
+format: custom
+envelope:
+  description: >-
+    Besides the HTTP status code, each error response body carries two fields.
+  fields:
+  - name: error_code
+    type: string
+    description: Machine-readable error identifier (e.g. UNAUTHORIZED).
+  - name: error_message
+    type: string
+    description: Human-readable explanation and hint on what might be wrong.
+  example:
+    error_code: UNAUTHORIZED
+    error_message: >-
+      The Authorization header is malformed or its type is wrong. We are expecting
+      the header 'Authorization: Basic base64(clientId:clientSecret)'
+status_codes:
+- status: 200
+  name: OK
+  meaning: Request was executed successfully.
+- status: 201
+  name: CREATED
+  meaning: Resource has been created.
+- status: 204
+  name: NO CONTENT
+  meaning: Resource archived/deleted successfully (no body).
+- status: 400
+  name: BAD REQUEST
+  meaning: Required parameter is missing from request.
+- status: 401
+  name: UNAUTHORIZED
+  meaning: API keys are invalid or the Authorization header is malformed.
+- status: 403
+  name: FORBIDDEN
+  meaning: Client does not have access to the resource.
+- status: 404
+  name: NOT FOUND
+  meaning: Resource does not exist.
+- status: 409
+  name: CONFLICT
+  meaning: Request cannot be fulfilled due to the current status of the resource.
+- status: 412
+  name: PRECONDITION FAILED
+  meaning: Unable to process the request.
+- status: 422
+  name: UNPROCESSABLE ENTITY
+  meaning: Invalid or missing fields provided to the request.
+- status: 429
+  name: TOO MANY REQUESTS
+  meaning: Rate limit exceeded.
+- status: 500
+  name: INTERNAL SERVER ERROR
+  meaning: Request could not be processed on Capchase's side.

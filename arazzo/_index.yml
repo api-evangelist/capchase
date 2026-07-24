@@ -1,0 +1,7 @@
+# Catalog of Capchase native Arazzo workflows in this directory.
+# Each is a runnable, forkable multi-step workflow over Capchase Pay's own OpenAPI (../openapi/).
+# Auth is HTTP Basic; run against the Playground base URL first (see ../sandbox/capchase-sandbox.yml).
+- file: capchase-buyer-to-subscription.yml
+  workflowId: qualify-buyer-and-create-subscription
+  title: Capchase Qualify a Buyer and Create a Financed Subscription
+  summary: Create a buyer, confirm qualification, then create a financed subscription and read its status.

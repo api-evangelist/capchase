@@ -1,0 +1,34 @@
+generated: '2026-07-18'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.capchase.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  4 12:13:29 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: capchase.readme.io
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  9 13:12:37 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: universe.capchase.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 19 15:14:51 2026 GMT
+  hsts: null
+domains:
+- domain: capchase.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
+- domain: readme.io
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: quarantine

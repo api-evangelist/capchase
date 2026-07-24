@@ -1,0 +1,22 @@
+# Embedded Financing and Pay APIs Documentation
+
+> Capchase's Embedded Financing and Pay APIs
+
+## Guides
+- [Get Started](https://capchase.readme.io/docs/get-started.md)
+
+## API Reference
+- [Migrating from v1](https://capchase.readme.io/reference/migrating-from-v1.md)
+- [Authentication](https://capchase.readme.io/reference/authentication.md)
+- [Development](https://capchase.readme.io/reference/development.md)
+- [Status codes](https://capchase.readme.io/reference/status-codes.md)
+- [Errors](https://capchase.readme.io/reference/errors.md)
+- [Create buyer](https://capchase.readme.io/reference/payexternalcontroller_createbuyer-1.md): Creates a new buyer company
+- [Get buyer](https://capchase.readme.io/reference/payexternalcontroller_getbuyer-1.md): Retrieves the details of a buyer
+- [Update buyer external Id](https://capchase.readme.io/reference/payexternalcontroller_updatebuyerexternalid-1.md): Updates the external Id of a buyer
+- [Renew buyer qualification](https://capchase.readme.io/reference/payexternalcontroller_updatebuyerqualification-1.md): Renews the qualification of a buyer
+- [Create subscription](https://capchase.readme.io/reference/payexternalcontroller_createsubscription.md): Creates a new subscription
+- [List subscriptions](https://capchase.readme.io/reference/payexternalcontroller_listsubscriptions.md): Returns subscriptions for the authenticated vendor, with optional filters.
+- [Get subscription](https://capchase.readme.io/reference/payexternalcontroller_getsubscription.md): Retrieves the details of a subscription
+- [Archive subscription](https://capchase.readme.io/reference/payexternalcontroller_delete-1.md): Deletes a subscription. This action cannot be undone. Subscriptions can only be archived if they are in DRAFT, READY, BUYER_ACCEPTED, APPROVED, ACTIVE and ERROR statuses, and debits and credits might not have been collected/sent or have been reversed.
+- [Get instalment receipt](https://capchase.readme.io/reference/payexternalcontroller_getinstalmentreceipt.md): Returns a signed link to the receipt PDF for a given returned instalment of a subscription.

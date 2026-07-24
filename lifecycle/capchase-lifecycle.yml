@@ -1,0 +1,24 @@
+generated: '2026-07-18'
+method: searched
+source: https://capchase.readme.io/reference/migrating-from-v1
+api: openapi/capchase-pay-openapi.yml
+versioning:
+  scheme: uri-path
+  current: v2
+  base_url: https://universe.capchase.com/api/v2
+  docs: https://capchase.readme.io/reference/development
+deprecation:
+  previous_version: v1
+  previous_base_url: https://production.capchase.com/embedded/api/v1
+  status: deprecated
+  migration_guide: https://capchase.readme.io/reference/migrating-from-v1
+  notes: >-
+    v2 changed authentication to HTTP Basic in the Authorization header, introduced
+    non-POST HTTP methods, moved the base URL to universe.capchase.com/api/v2, and
+    simplified the Subscription contract. Credentials valid for v1 remain valid for v2.
+  sunset_header: false
+sla:
+  published: false
+status_page:
+  published: false
+deprecated_operations: []

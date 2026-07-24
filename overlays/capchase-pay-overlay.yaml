@@ -1,0 +1,30 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Capchase Pay
+  version: 1.0.0
+extends: openapi/capchase-pay-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: capchase
+    x-apievangelist-product: Capchase Pay
+    x-apievangelist-category: embedded-financing
+    x-apievangelist-auth: http-basic
+    x-apievangelist-environments:
+      production: https://universe.capchase.com/api/v2
+      playground: https://universe.playground.capchase.com/api/v2
+- target: $.info
+  update:
+    description: >-
+      Capchase Pay v2 REST API — embedded B2B financing at checkout. Create and
+      qualify buyer companies (KYB/underwriting), create subscriptions that generate
+      hosted payment links with installment terms, list/retrieve subscription status,
+      archive subscriptions, and fetch instalment receipt PDFs. HTTP Basic auth
+      (clientId/clientSecret); credentials issued via pay@capchase.com. Reconstructed
+      by API Evangelist from the published per-operation OpenAPI fragments on the
+      Capchase ReadMe developer portal.
+- target: $.components.schemas.SubscriptionApiVo.properties.status
+  update:
+    x-apievangelist-note: >-
+      Subscription lifecycle state — see data-model/capchase-data-model.yml for the
+      full enum and finance_status progression.

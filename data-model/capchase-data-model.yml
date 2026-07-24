@@ -1,0 +1,46 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/capchase-pay-openapi.yml
+entities:
+- name: Buyer
+  schema: BuyerResponseDto
+  id_field: id
+  path: /pay/buyers/{id}
+  key_fields: [name, legal_name, tax_id, kyb_status, credit_quality, status, external_id]
+- name: Subscription
+  schema: SubscriptionApiVo
+  id_field: id
+  path: /pay/subscriptions/{id}
+  key_fields: [name, buyer_id, vendor_id, amount, currency, payment_method, payment_link, finance_status, status]
+- name: SubscriptionItem
+  schema: SubscriptionItemVo
+  id_field: id
+  key_fields: [name, description, amount]
+- name: SubscriptionInstallment
+  schema: SubscriptionInstallmentVo
+  key_fields: [amount, date]
+- name: InstalmentReceipt
+  schema: InstalmentReceiptResponseVo
+  path: /pay/subscriptions/{key}/instalment/{instalmentKey}/receipt
+  key_fields: [url]
+relationships:
+- from: Subscription
+  to: Buyer
+  type: belongs_to
+  via: buyer_id
+- from: Subscription
+  to: SubscriptionItem
+  type: has_many
+  via: items
+- from: Subscription
+  to: SubscriptionInstallment
+  type: has_many
+  via: breakdown
+- from: SubscriptionInstallment
+  to: InstalmentReceipt
+  type: has_one
+  via: instalmentKey
+enumerations:
+  subscription_status: [DRAFT, READY, BUYER_ACCEPTED, APPROVED, CANCELED, DENIED, ACTIVE, STALE, ERROR, FINISHED, ARCHIVED, DELETED]
+  finance_status: [PAYMENT_LINK_CREATED, PAYMENT_LINK_OPENED, COMPANY_DETAILS_COMPLETED, PAYMENT_METHOD_ADDED, AGREEMENTS_SIGNED]
+  payment_method: [CREDIT_CARD, BANK_ACCOUNT, WIRE, STRIPE_UPFRONT, CHECK]

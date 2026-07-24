@@ -1,8 +1,16 @@
 aid: capchase
 name: Capchase
-description: 'Capchase is a company surfaced as a portfolio company of qed-investors and added to the
-  API Evangelist network as a stub for enrichment. Sector: fintech. This profile is a lead awaiting the
-  enrichment pipeline.'
+description: >-
+  Capchase provides embedded financing and B2B payment infrastructure for software
+  and hardware vendors. Its Capchase Pay API lets vendors offer buyers flexible
+  installment payment terms at checkout while the vendor is paid the full contract
+  value upfront. Vendors create buyer companies, run automated KYB/underwriting
+  qualification, create subscriptions that generate hosted payment links, list and
+  retrieve subscription status, and pull instalment receipts. The v2 REST API is
+  served from universe.capchase.com, uses HTTP Basic authentication (clientId /
+  clientSecret), ships a Playground environment, and is documented on a ReadMe
+  developer portal with an OpenAPI reference and an AI-agent llms.txt index. Sector:
+  fintech; backed by QED Investors.
 url: https://raw.githubusercontent.com/api-evangelist/capchase/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -10,13 +18,56 @@ x-backed-by:
 - qed-investors
 x-tier: stub
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
+image: https://cdn.prod.website-files.com/6146543ab50f167ae088b201/61701898ec2756274d6e8665_256px.png
 tags:
 - Company
 - Fintech
-apis: []
+- Payments
+- Embedded Finance
+- Financing
+- B2B SaaS
+- Revenue Financing
+- BNPL
+- KYB
+- Underwriting
+apis:
+- aid: capchase:capchase-pay-api
+  name: Capchase Pay API
+  description: The Pay API from Capchase — 8 operation(s) for pay.
+  humanURL: https://capchase.readme.io/reference
+  baseURL: https://universe.capchase.com/api/v2
+  tags:
+  - Pay
+  properties:
+  - type: OpenAPI
+    url: openapi/capchase-pay-api-openapi.yml
+  - type: Authentication
+    url: authentication/capchase-authentication.yml
+  - type: ErrorCatalog
+    url: errors/capchase-error-codes.yml
+  - type: Conventions
+    url: conventions/capchase-conventions.yml
+  - type: DataModel
+    url: data-model/capchase-data-model.yml
+  - type: AgenticAccess
+    url: agentic-access/capchase-agentic-access.yml
+  - type: Arazzo
+    url: arazzo/capchase-buyer-to-subscription.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -25,3 +76,46 @@ maintainers:
 common:
 - type: Website
   url: https://www.capchase.com/
+- type: DeveloperPortal
+  url: https://capchase.readme.io/
+- type: Documentation
+  url: https://capchase.readme.io/docs
+- type: APIReference
+  url: https://capchase.readme.io/reference
+- type: GettingStarted
+  url: https://capchase.readme.io/docs/get-started
+- type: Authentication
+  url: authentication/capchase-authentication.yml
+- type: GitHubOrganization
+  url: https://github.com/Capchase
+- type: Blog
+  url: https://www.capchase.com/blog
+- type: SignUp
+  url: https://app.capchase.com/login
+- type: TermsOfService
+  url: https://www.capchase.com/terms-of-use
+- type: PrivacyPolicy
+  url: https://www.capchase.com/privacy-policy
+- type: Deprecation
+  url: https://capchase.readme.io/reference/migrating-from-v1
+- type: Compliance
+  url: https://www.capchase.com/
+- type: LLMsTxt
+  url: llms/capchase-llms.txt
+- type: Sandbox
+  url: sandbox/capchase-sandbox.yml
+- type: Conventions
+  url: conventions/capchase-conventions.yml
+- type: Lifecycle
+  url: lifecycle/capchase-lifecycle.yml
+- type: Conformance
+  url: conformance/capchase-conformance.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DomainSecurity
+  url: security/capchase-domain-security.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

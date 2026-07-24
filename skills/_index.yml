@@ -1,0 +1,21 @@
+generated: '2026-07-18'
+method: generated
+source: openapi/capchase-pay-openapi.yml
+skills:
+- file: capchase-qualify-buyer-and-finance.md
+  name: Qualify a buyer and create a financed subscription
+  api: openapi/capchase-pay-openapi.yml
+  operations:
+  - PayExternalController_createBuyer
+  - PayExternalController_getBuyer
+  - PayExternalController_updateBuyerQualification
+  - PayExternalController_createSubscription
+  - PayExternalController_getSubscription
+- file: capchase-reconcile-subscriptions.md
+  name: Reconcile subscriptions and pull instalment receipts
+  api: openapi/capchase-pay-openapi.yml
+  operations:
+  - PayExternalController_listSubscriptions
+  - PayExternalController_getSubscription
+  - PayExternalController_getInstalmentReceipt
+  - PayExternalController_delete

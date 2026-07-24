@@ -1,0 +1,52 @@
+generated: '2026-07-18'
+method: searched
+source: https://capchase.readme.io/reference
+api: openapi/capchase-pay-openapi.yml
+authentication:
+  style: http-basic
+  header: 'Authorization: Basic base64(clientId:clientSecret)'
+  scopes: false
+  docs: https://capchase.readme.io/reference/authentication
+  see: authentication/capchase-authentication.yml
+idempotency:
+  supported: false
+  notes: >-
+    Capchase Pay does not document an idempotency-key header or parameter as of this
+    capture. Retries of create operations are not guaranteed to be de-duplicated.
+pagination:
+  style: offset-limit
+  params:
+  - name: offset
+    in: query
+    default: 0
+    minimum: 0
+    description: Pagination offset.
+  - name: limit
+    in: query
+    default: 100
+    minimum: 1
+    description: Max results to return.
+  applies_to:
+  - GET /pay/subscriptions
+versioning:
+  scheme: uri-path
+  current: v2
+  base_url: https://universe.capchase.com/api/v2
+  previous: v1 (https://production.capchase.com/embedded/api/v1, deprecated)
+  see: lifecycle/capchase-lifecycle.yml
+error_envelope:
+  fields: [error_code, error_message]
+  format: custom
+  see: errors/capchase-error-codes.yml
+rate_limiting:
+  signaled: true
+  mechanism: HTTP 429 TOO MANY REQUESTS
+  headers_documented: false
+  docs: https://capchase.readme.io/reference/rate-limits
+transport:
+  https_required: true
+  content_type: application/json
+environments:
+  production: https://universe.capchase.com/api/v2
+  playground: https://universe.playground.capchase.com/api/v2
+  see: sandbox/capchase-sandbox.yml

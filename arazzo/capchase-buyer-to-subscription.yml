@@ -1,0 +1,106 @@
+arazzo: 1.0.1
+info:
+  title: Capchase Qualify a Buyer and Create a Financed Subscription
+  summary: Create a buyer, confirm qualification, then create a financed subscription and read its status.
+  description: >-
+    The core Capchase Pay onboarding flow. Creates a buyer company (which triggers
+    KYB/underwriting), reads the buyer back to confirm qualification, creates a
+    subscription with line items that returns a hosted payment_link, then retrieves
+    the subscription to observe its finance_status and status. Auth is HTTP Basic
+    (clientId/clientSecret); run against the Playground base URL first.
+  version: 1.0.0
+sourceDescriptions:
+- name: payApi
+  url: ../openapi/capchase-pay-openapi.yml
+  type: openapi
+workflows:
+- workflowId: qualify-buyer-and-create-subscription
+  summary: Create and qualify a buyer, then create and read a financed subscription.
+  description: >-
+    Runs the buyer create -> read -> subscription create -> subscription read path
+    end to end.
+  inputs:
+    type: object
+    required:
+    - buyerName
+    - buyerLegalName
+    - buyerCountry
+    - itemName
+    - itemAmount
+    properties:
+      buyerName:
+        type: string
+        description: Display name of the buyer company.
+      buyerLegalName:
+        type: string
+        description: Legal name of the buyer company.
+      buyerCountry:
+        type: string
+        description: Buyer country ISO-3166-1 alpha-3 code (e.g. USA).
+      subscriptionName:
+        type: string
+        description: Name for the subscription.
+      itemName:
+        type: string
+        description: Name of the subscription line item.
+      itemAmount:
+        type: number
+        description: Amount for the subscription line item.
+  steps:
+  - stepId: createBuyer
+    description: Create the buyer company; Capchase runs KYB/underwriting.
+    operationId: PayExternalController_createBuyer
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.buyerName
+        legal_name: $inputs.buyerLegalName
+        country: $inputs.buyerCountry
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      buyerId: $response.body#/id
+  - stepId: confirmQualification
+    description: Read the buyer back to confirm KYB/qualification status.
+    operationId: PayExternalController_getBuyer
+    parameters:
+    - name: id
+      in: path
+      value: $steps.createBuyer.outputs.buyerId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      kybStatus: $response.body#/kyb_status
+      buyerStatus: $response.body#/status
+  - stepId: createSubscription
+    description: Create a subscription for the buyer; response carries the hosted payment link.
+    operationId: PayExternalController_createSubscription
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.subscriptionName
+        buyer_id: $steps.createBuyer.outputs.buyerId
+        items:
+        - name: $inputs.itemName
+          amount: $inputs.itemAmount
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      subscriptionId: $response.body#/id
+      paymentLink: $response.body#/payment_link
+  - stepId: readSubscription
+    description: Retrieve the subscription to observe finance_status and status.
+    operationId: PayExternalController_getSubscription
+    parameters:
+    - name: id
+      in: path
+      value: $steps.createSubscription.outputs.subscriptionId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      financeStatus: $response.body#/finance_status
+      status: $response.body#/status
+  outputs:
+    buyerId: $steps.createBuyer.outputs.buyerId
+    subscriptionId: $steps.createSubscription.outputs.subscriptionId
+    paymentLink: $steps.createSubscription.outputs.paymentLink

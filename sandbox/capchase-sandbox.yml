@@ -1,0 +1,22 @@
+generated: '2026-07-18'
+method: searched
+source: https://capchase.readme.io/reference/development
+environments:
+- name: Production
+  base_url: https://universe.capchase.com/api/v2
+- name: Playground
+  base_url: https://universe.playground.capchase.com/api/v2
+  purpose: >-
+    Test the different endpoints before releasing to production.
+  keys: >-
+    Uses a different set of API keys from production; request Playground credentials
+    from pay@capchase.com.
+key_separation:
+  scheme: separate-credentials-per-environment
+  auth: HTTP Basic (clientId / clientSecret)
+test_values:
+  published: false
+  notes: >-
+    Capchase does not publish magic test card numbers, test bank accounts, or fixture
+    identifiers in its public docs. Testing is performed against the Playground
+    environment with Playground-issued credentials.

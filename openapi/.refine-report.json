@@ -1,0 +1,14 @@
+{
+  "provider": "capchase",
+  "sources": [
+    "capchase-pay-api-openapi.yml"
+  ],
+  "outputs": [
+    "capchase-pay-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

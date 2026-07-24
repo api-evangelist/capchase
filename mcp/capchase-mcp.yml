@@ -1,0 +1,39 @@
+generated: '2026-07-18'
+method: derived
+status: candidate
+source: openapi/capchase-pay-openapi.yml
+notes: >-
+  No official hosted/remote Capchase MCP server was found (docs, npm
+  @modelcontextprotocol, MCP registries). The tool list below is a candidate derived
+  one-to-one from the Capchase Pay OpenAPI operations.
+server:
+  name: capchase-pay
+  transport: http
+tools:
+- name: create_buyer
+  description: Create a new buyer company (runs KYB/underwriting qualification).
+  source_operation: openapi/capchase-pay-openapi.yml#PayExternalController_createBuyer
+- name: get_buyer
+  description: Retrieve the details of a buyer.
+  source_operation: openapi/capchase-pay-openapi.yml#PayExternalController_getBuyer
+- name: update_buyer_external_id
+  description: Update the external Id of a buyer.
+  source_operation: openapi/capchase-pay-openapi.yml#PayExternalController_updateBuyerExternalId
+- name: renew_buyer_qualification
+  description: Renew the qualification of a buyer.
+  source_operation: openapi/capchase-pay-openapi.yml#PayExternalController_updateBuyerQualification
+- name: create_subscription
+  description: Create a new subscription and generate a hosted payment link.
+  source_operation: openapi/capchase-pay-openapi.yml#PayExternalController_createSubscription
+- name: list_subscriptions
+  description: List subscriptions for the authenticated vendor, with optional filters.
+  source_operation: openapi/capchase-pay-openapi.yml#PayExternalController_listSubscriptions
+- name: get_subscription
+  description: Retrieve the details of a subscription.
+  source_operation: openapi/capchase-pay-openapi.yml#PayExternalController_getSubscription
+- name: archive_subscription
+  description: Archive (delete) a subscription. Cannot be undone.
+  source_operation: openapi/capchase-pay-openapi.yml#PayExternalController_delete
+- name: get_instalment_receipt
+  description: Get a signed link to the receipt PDF for a returned instalment.
+  source_operation: openapi/capchase-pay-openapi.yml#PayExternalController_getInstalmentReceipt
