@@ -1,0 +1,965 @@
+{
+  "item": [
+    {
+      "id": "c1b27311-a008-4e9c-9f1f-b066044e3635",
+      "name": "Pay",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2fe53677-1a20-4265-9525-e13e25883377",
+          "name": "Create buyer",
+          "request": {
+            "name": "Create buyer",
+            "description": {
+              "content": "Creates a new buyer company",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pay",
+                "buyers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"legal_name\": \"<string>\",\n  \"website\": \"<string>\",\n  \"country\": \"<string>\",\n  \"city\": \"<string>\",\n  \"address_line1\": \"<string>\",\n  \"postal_code\": \"<string>\",\n  \"tax_id\": \"<string>\",\n  \"state\": \"<string>\",\n  \"address_line2\": \"<string>\",\n  \"vendor_notification_emails\": [\n    \"<email>\",\n    \"<email>\"\n  ],\n  \"external_id\": \"<string>\",\n  \"metadata\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c70f6440-5819-40a4-8ef8-d4bcc6af0513",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pay",
+                    "buyers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Apple\",\n  \"legal_name\": \"Apple Inc.\",\n  \"website\": \"www.apple.com\",\n  \"country\": \"USA\",\n  \"city\": \"San Francisco\",\n  \"address_line1\": \"1 Infinite Loop\",\n  \"postal_code\": \"95014\",\n  \"tax_id\": \"123456789\",\n  \"state\": \"CA\",\n  \"address_line2\": \"Suite 100\",\n  \"vendor_notification_emails\": [\n    \"billing@example.com\",\n    \"finance@example.com\"\n  ],\n  \"external_id\": \"<string>\",\n  \"metadata\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"legal_name\": \"string\",\n  \"tax_id\": \"string\",\n  \"website\": \"string\",\n  \"kyb_status\": \"string\",\n  \"kyb_rejected_reasons\": [\n    \"string\",\n    \"string\"\n  ],\n  \"created_at\": \"1986-06-02T18:23:02.228Z\",\n  \"country_iso3\": \"string\",\n  \"state\": \"string\",\n  \"city\": \"string\",\n  \"address_line1\": \"string\",\n  \"address_line2\": \"string\",\n  \"postal_code\": \"string\",\n  \"currency\": \"string\",\n  \"status\": \"string\",\n  \"external_id\": \"string\",\n  \"metadata\": {},\n  \"terms\": {\n    \"min_amount\": 8978.058475130334,\n    \"max_amount\": 3447.0226927670456,\n    \"max_duration\": 4862.814248928337,\n    \"expiration_date\": \"1995-04-21T10:12:15.051Z\",\n    \"requested_amount\": 412.11212306145217,\n    \"available_credit_limit\": 2465.176450414418,\n    \"limit_raise_request_status\": \"string\"\n  },\n  \"credit_quality\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5bafe35d-58da-481e-84cb-08d7dd2bf20d",
+          "name": "Create subscription",
+          "request": {
+            "name": "Create subscription",
+            "description": {
+              "content": "Creates a new subscription",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pay",
+                "subscriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"buyer_id\": \"<string>\",\n  \"items\": [\n    {\n      \"name\": \"<string>\",\n      \"amount\": \"<number>\",\n      \"type\": \"<string>\",\n      \"start_date\": \"<dateTime>\",\n      \"period\": \"<string>\",\n      \"duration\": \"<number>\",\n      \"description\": \"<string>\",\n      \"net_term\": \"<string>\"\n    }\n  ],\n  \"vendor_notification_emails\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"buyer_notification_emails\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"external_id\": \"<string>\",\n  \"metadata\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "14d32392-4eb3-40a3-8a74-4c9de370cd17",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pay",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"MyCompany <> MyBuyer - 12 Months pro plan\",\n  \"description\": \"Yearly pro plan for 12 ppl + 2 admin seats + onboarding\",\n  \"buyer_id\": \"11111111-2222-3333-8444-555555555555\",\n  \"items\": [\n    {\n      \"name\": \"12 seats\",\n      \"amount\": 800000,\n      \"type\": \"PARAMETRIC\",\n      \"start_date\": \"<dateTime>\",\n      \"period\": \"MONTHS\",\n      \"duration\": 12,\n      \"description\": \"10$/mo per seat\",\n      \"net_term\": \"NET_30\"\n    }\n  ],\n  \"vendor_notification_emails\": [\n    \"accounting@your_company.com\"\n  ],\n  \"buyer_notification_emails\": [\n    \"buyer@buyer_company.com\"\n  ],\n  \"external_id\": \"ABC00014\",\n  \"metadata\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"name\": \"Subscription Name\",\n  \"vendor_id\": \"vendor-123\",\n  \"buyer_id\": \"buyer-456\",\n  \"amount\": 1000,\n  \"amount_net\": 900,\n  \"amount_fee\": 100,\n  \"currency\": \"USD\",\n  \"external_id\": \"external-789\",\n  \"status\": \"ACTIVE\",\n  \"created_at\": \"2025-05-22T10:09:25.160Z\",\n  \"updated_at\": \"2025-06-22T10:09:25.160Z\",\n  \"description\": \"Description of the subscription\",\n  \"buyer_notification_emails\": [\n    \"email@example.com\"\n  ],\n  \"vendor_notification_emails\": [\n    \"email@example.com\"\n  ],\n  \"payment_method\": \"CREDIT_CARD\",\n  \"allowed_payment_methods\": [\n    \"CREDIT_CARD\"\n  ],\n  \"metadata\": {},\n  \"payment_link\": \"http://example.com/link/HtJxlu7N\",\n  \"finance_status\": \"COMPANY_DETAILS_COMPLETED\",\n  \"pl_progress_date\": \"2025-07-22T10:09:25.160Z\",\n  \"items\": [\n    {\n      \"id\": \"Basic Plan\",\n      \"name\": \"Basic Plan\",\n      \"amount\": 1000,\n      \"description\": \"This is a basic subscription plan.\"\n    },\n    {\n      \"id\": \"Basic Plan\",\n      \"name\": \"Basic Plan\",\n      \"amount\": 1000,\n      \"description\": \"This is a basic subscription plan.\"\n    }\n  ],\n  \"breakdown\": {\n    \"amount\": {\n      \"buyer_gross\": {\n        \"amount\": 100000,\n        \"currency\": \"USD\",\n        \"precision\": 2\n      }\n    },\n    \"fee\": {\n      \"total\": {\n        \"fee\": 2526.700917263244,\n        \"bips\": 8400.148243166306,\n        \"precision\": 3306.2959364780663\n      }\n    },\n    \"balances\": [\n      {\n        \"amount\": {\n          \"gross\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"date\": \"2025-05-22T10:09:25.160Z\"\n      },\n      {\n        \"amount\": {\n          \"gross\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"date\": \"2025-05-22T10:09:25.160Z\"\n      }\n    ],\n    \"installments\": [\n      {\n        \"amount\": {\n          \"gross\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"date\": \"2025-05-22T10:09:25.160Z\"\n      },\n      {\n        \"amount\": {\n          \"gross\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"date\": \"2025-05-22T10:09:25.160Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "84b94ac9-6f80-4b5e-8122-fbcbec085e29",
+          "name": "List subscriptions",
+          "request": {
+            "name": "List subscriptions",
+            "description": {
+              "content": "Returns subscriptions for the authenticated vendor, with optional filters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pay",
+                "subscriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "buyer_id",
+                  "value": "<string>",
+                  "description": "Filter by buyer company ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Pagination offset"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Max results to return"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dc54ae63-e30c-4517-9f07-7fcd8366e7f9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pay",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "buyer_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"name\": \"Subscription Name\",\n    \"vendor_id\": \"vendor-123\",\n    \"buyer_id\": \"buyer-456\",\n    \"amount\": 1000,\n    \"amount_net\": 900,\n    \"amount_fee\": 100,\n    \"currency\": \"USD\",\n    \"external_id\": \"external-789\",\n    \"status\": \"ACTIVE\",\n    \"created_at\": \"2025-05-22T10:09:25.160Z\",\n    \"updated_at\": \"2025-06-22T10:09:25.160Z\",\n    \"description\": \"Description of the subscription\",\n    \"buyer_notification_emails\": [\n      \"email@example.com\"\n    ],\n    \"vendor_notification_emails\": [\n      \"email@example.com\"\n    ],\n    \"payment_method\": \"CREDIT_CARD\",\n    \"allowed_payment_methods\": [\n      \"CREDIT_CARD\"\n    ],\n    \"metadata\": {},\n    \"payment_link\": \"http://example.com/link/HtJxlu7N\",\n    \"finance_status\": \"PAYMENT_LINK_CREATED\",\n    \"pl_progress_date\": \"2025-07-22T10:09:25.160Z\",\n    \"items\": [\n      {\n        \"id\": \"Basic Plan\",\n        \"name\": \"Basic Plan\",\n        \"amount\": 1000,\n        \"description\": \"This is a basic subscription plan.\"\n      },\n      {\n        \"id\": \"Basic Plan\",\n        \"name\": \"Basic Plan\",\n        \"amount\": 1000,\n        \"description\": \"This is a basic subscription plan.\"\n      }\n    ],\n    \"breakdown\": {\n      \"amount\": {\n        \"buyer_gross\": {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"precision\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"fee\": {\n        \"total\": {\n          \"fee\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"bips\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"precision\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"balances\": [\n        {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"date\": \"2025-05-22T10:09:25.160Z\"\n        },\n        {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"date\": \"2025-05-22T10:09:25.160Z\"\n        }\n      ],\n      \"installments\": [\n        {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"date\": \"2025-05-22T10:09:25.160Z\"\n        },\n        {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"date\": \"2025-05-22T10:09:25.160Z\"\n        }\n      ]\n    }\n  },\n  {\n    \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n    \"name\": \"Subscription Name\",\n    \"vendor_id\": \"vendor-123\",\n    \"buyer_id\": \"buyer-456\",\n    \"amount\": 1000,\n    \"amount_net\": 900,\n    \"amount_fee\": 100,\n    \"currency\": \"USD\",\n    \"external_id\": \"external-789\",\n    \"status\": \"ACTIVE\",\n    \"created_at\": \"2025-05-22T10:09:25.160Z\",\n    \"updated_at\": \"2025-06-22T10:09:25.160Z\",\n    \"description\": \"Description of the subscription\",\n    \"buyer_notification_emails\": [\n      \"email@example.com\"\n    ],\n    \"vendor_notification_emails\": [\n      \"email@example.com\"\n    ],\n    \"payment_method\": \"CREDIT_CARD\",\n    \"allowed_payment_methods\": [\n      \"CREDIT_CARD\"\n    ],\n    \"metadata\": {},\n    \"payment_link\": \"http://example.com/link/HtJxlu7N\",\n    \"finance_status\": \"AGREEMENTS_SIGNED\",\n    \"pl_progress_date\": \"2025-07-22T10:09:25.160Z\",\n    \"items\": [\n      {\n        \"id\": \"Basic Plan\",\n        \"name\": \"Basic Plan\",\n        \"amount\": 1000,\n        \"description\": \"This is a basic subscription plan.\"\n      },\n      {\n        \"id\": \"Basic Plan\",\n        \"name\": \"Basic Plan\",\n        \"amount\": 1000,\n        \"description\": \"This is a basic subscription plan.\"\n      }\n    ],\n    \"breakdown\": {\n      \"amount\": {\n        \"buyer_gross\": {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"currency\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"precision\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"fee\": {\n        \"total\": {\n          \"fee\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"bips\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"precision\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"balances\": [\n        {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"date\": \"2025-05-22T10:09:25.160Z\"\n        },\n        {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"date\": \"2025-05-22T10:09:25.160Z\"\n        }\n      ],\n      \"installments\": [\n        {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"date\": \"2025-05-22T10:09:25.160Z\"\n        },\n        {\n          \"amount\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"date\": \"2025-05-22T10:09:25.160Z\"\n        }\n      ]\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "09bd1f51-093b-4206-8249-5c6e711a9728",
+          "name": "Archive subscription",
+          "request": {
+            "name": "Archive subscription",
+            "description": {
+              "content": "Deletes a subscription. This action cannot be undone. Subscriptions can only be archived if they are in DRAFT, READY, BUYER_ACCEPTED, APPROVED, ACTIVE and ERROR statuses, and debits and credits might not have been collected/sent or have been reversed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pay",
+                "subscriptions",
+                ":key"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "key",
+                  "description": "(Required) Key of the subscription to be deleted"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2579422c-6141-4ec5-a8e4-439fbd570369",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pay",
+                    "subscriptions",
+                    ":key"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) Key of the subscription to be deleted"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a0a0d0ab-e380-49a7-9c82-13d296245a55",
+          "name": "Get buyer",
+          "request": {
+            "name": "Get buyer",
+            "description": {
+              "content": "Retrieves the details of a buyer",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pay",
+                "buyers",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Id of the buyer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "30fd62f6-5c88-4aef-82d1-9e31774a07eb",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pay",
+                    "buyers",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Id of the buyer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"legal_name\": \"string\",\n  \"tax_id\": \"string\",\n  \"website\": \"string\",\n  \"kyb_status\": \"string\",\n  \"kyb_rejected_reasons\": [\n    \"string\",\n    \"string\"\n  ],\n  \"created_at\": \"1951-11-21T01:25:41.257Z\",\n  \"country_iso3\": \"string\",\n  \"state\": \"string\",\n  \"city\": \"string\",\n  \"address_line1\": \"string\",\n  \"address_line2\": \"string\",\n  \"postal_code\": \"string\",\n  \"currency\": \"string\",\n  \"status\": \"string\",\n  \"external_id\": \"string\",\n  \"metadata\": {},\n  \"terms\": {\n    \"min_amount\": 7340.199941922473,\n    \"max_amount\": 8454.365148389663,\n    \"max_duration\": 4773.85693380812,\n    \"expiration_date\": \"1965-06-13T07:05:55.013Z\",\n    \"requested_amount\": 29.542004589558914,\n    \"available_credit_limit\": 8783.724399143002,\n    \"limit_raise_request_status\": \"string\"\n  },\n  \"credit_quality\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b2315c75-4a29-4ec3-8a3a-82089084d34a",
+          "name": "Get instalment receipt",
+          "request": {
+            "name": "Get instalment receipt",
+            "description": {
+              "content": "Returns a signed link to the receipt PDF for a given returned instalment of a subscription.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pay",
+                "subscriptions",
+                ":key",
+                "instalment",
+                ":instalmentKey",
+                "receipt"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "key",
+                  "description": "(Required) Key of the subscription"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "instalmentKey",
+                  "description": "(Required) Key of the instalment"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "beb97e89-ee48-45c3-aa48-2234d43097d1",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pay",
+                    "subscriptions",
+                    ":key",
+                    "instalment",
+                    ":instalmentKey",
+                    "receipt"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "key",
+                      "description": "(Required) Key of the subscription"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "instalmentKey",
+                      "description": "(Required) Key of the instalment"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"url\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "beb5e0b8-09ba-4df4-9cb1-9b0b31b7e242",
+          "name": "Get subscription",
+          "request": {
+            "name": "Get subscription",
+            "description": {
+              "content": "Retrieves the details of a subscription",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pay",
+                "subscriptions",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Id of the subscription"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "57a9edd2-b6bc-4342-9e2d-59d3cc0f475e",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pay",
+                    "subscriptions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Id of the subscription"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"name\": \"Subscription Name\",\n  \"vendor_id\": \"vendor-123\",\n  \"buyer_id\": \"buyer-456\",\n  \"amount\": 1000,\n  \"amount_net\": 900,\n  \"amount_fee\": 100,\n  \"currency\": \"USD\",\n  \"external_id\": \"external-789\",\n  \"status\": \"ACTIVE\",\n  \"created_at\": \"2025-05-22T10:09:25.160Z\",\n  \"updated_at\": \"2025-06-22T10:09:25.160Z\",\n  \"description\": \"Description of the subscription\",\n  \"buyer_notification_emails\": [\n    \"email@example.com\"\n  ],\n  \"vendor_notification_emails\": [\n    \"email@example.com\"\n  ],\n  \"payment_method\": \"CREDIT_CARD\",\n  \"allowed_payment_methods\": [\n    \"CREDIT_CARD\"\n  ],\n  \"metadata\": {},\n  \"payment_link\": \"http://example.com/link/HtJxlu7N\",\n  \"finance_status\": \"PAYMENT_LINK_OPENED\",\n  \"pl_progress_date\": \"2025-07-22T10:09:25.160Z\",\n  \"items\": [\n    {\n      \"id\": \"Basic Plan\",\n      \"name\": \"Basic Plan\",\n      \"amount\": 1000,\n      \"description\": \"This is a basic subscription plan.\"\n    },\n    {\n      \"id\": \"Basic Plan\",\n      \"name\": \"Basic Plan\",\n      \"amount\": 1000,\n      \"description\": \"This is a basic subscription plan.\"\n    }\n  ],\n  \"breakdown\": {\n    \"amount\": {\n      \"buyer_gross\": {\n        \"amount\": 100000,\n        \"currency\": \"USD\",\n        \"precision\": 2\n      }\n    },\n    \"fee\": {\n      \"total\": {\n        \"fee\": 2940.7231516313113,\n        \"bips\": 1119.605923026925,\n        \"precision\": 7489.390371403873\n      }\n    },\n    \"balances\": [\n      {\n        \"amount\": {\n          \"gross\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"date\": \"2025-05-22T10:09:25.160Z\"\n      },\n      {\n        \"amount\": {\n          \"gross\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"date\": \"2025-05-22T10:09:25.160Z\"\n      }\n    ],\n    \"installments\": [\n      {\n        \"amount\": {\n          \"gross\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"date\": \"2025-05-22T10:09:25.160Z\"\n      },\n      {\n        \"amount\": {\n          \"gross\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"date\": \"2025-05-22T10:09:25.160Z\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "02c47ea3-fb1f-4a1c-9d7b-345c7b8256e2",
+          "name": "Update buyer external Id",
+          "request": {
+            "name": "Update buyer external Id",
+            "description": {
+              "content": "Updates the external Id of a buyer",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pay",
+                "buyers",
+                ":id",
+                "update-external-id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Id of the buyer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"external_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7dd5dd44-7c07-48b2-85f1-90e200568ccf",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pay",
+                    "buyers",
+                    ":id",
+                    "update-external-id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Id of the buyer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"external_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "92c34b08-54ea-4a97-88ee-309a2260e841",
+          "name": "Renew buyer qualification",
+          "request": {
+            "name": "Renew buyer qualification",
+            "description": {
+              "content": "Renews the qualification of a buyer",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "pay",
+                "buyers",
+                ":id",
+                "renew-qualification"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Id of the buyer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "679b52db-e926-4bcb-ba55-6ac5b089fe2c",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "pay",
+                    "buyers",
+                    ":id",
+                    "renew-qualification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Id of the buyer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"legal_name\": \"string\",\n  \"tax_id\": \"string\",\n  \"website\": \"string\",\n  \"kyb_status\": \"string\",\n  \"kyb_rejected_reasons\": [\n    \"string\",\n    \"string\"\n  ],\n  \"created_at\": \"1951-11-21T01:25:41.257Z\",\n  \"country_iso3\": \"string\",\n  \"state\": \"string\",\n  \"city\": \"string\",\n  \"address_line1\": \"string\",\n  \"address_line2\": \"string\",\n  \"postal_code\": \"string\",\n  \"currency\": \"string\",\n  \"status\": \"string\",\n  \"external_id\": \"string\",\n  \"metadata\": {},\n  \"terms\": {\n    \"min_amount\": 7340.199941922473,\n    \"max_amount\": 8454.365148389663,\n    \"max_duration\": 4773.85693380812,\n    \"expiration_date\": \"1965-06-13T07:05:55.013Z\",\n    \"requested_amount\": 29.542004589558914,\n    \"available_credit_limit\": 8783.724399143002,\n    \"limit_raise_request_status\": \"string\"\n  },\n  \"credit_quality\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://universe.capchase.com/api/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fb8f8425-92b7-4018-ada1-fb4f0dbc84e3",
+    "name": "Capchase Pay API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Capchase Pay API definition",
+      "type": "text/plain"
+    }
+  }
+}

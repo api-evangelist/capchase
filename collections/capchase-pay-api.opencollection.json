@@ -1,0 +1,210 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Capchase Pay API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pay",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create buyer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://universe.capchase.com/api/v2/pay/buyers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new buyer company"
+        },
+        {
+          "info": {
+            "name": "List subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://universe.capchase.com/api/v2/pay/subscriptions",
+            "params": [
+              {
+                "name": "buyer_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by buyer company ID"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Max results to return"
+              }
+            ]
+          },
+          "docs": "Returns subscriptions for the authenticated vendor, with optional filters."
+        },
+        {
+          "info": {
+            "name": "Create subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://universe.capchase.com/api/v2/pay/subscriptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new subscription"
+        },
+        {
+          "info": {
+            "name": "Archive subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://universe.capchase.com/api/v2/pay/subscriptions/:key",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Key of the subscription to be deleted"
+              }
+            ]
+          },
+          "docs": "Deletes a subscription. This action cannot be undone. Subscriptions can only be archived if they are in DRAFT, READY, BUYER_ACCEPTED, APPROVED, ACTIVE and ERROR statuses, and debits and credits might not have been collected/sent or have been reversed."
+        },
+        {
+          "info": {
+            "name": "Get buyer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://universe.capchase.com/api/v2/pay/buyers/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Id of the buyer"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a buyer"
+        },
+        {
+          "info": {
+            "name": "Get instalment receipt",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://universe.capchase.com/api/v2/pay/subscriptions/:key/instalment/:instalmentKey/receipt",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "path",
+                "description": "Key of the subscription"
+              },
+              {
+                "name": "instalmentKey",
+                "value": "",
+                "type": "path",
+                "description": "Key of the instalment"
+              }
+            ]
+          },
+          "docs": "Returns a signed link to the receipt PDF for a given returned instalment of a subscription."
+        },
+        {
+          "info": {
+            "name": "Get subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://universe.capchase.com/api/v2/pay/subscriptions/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Id of the subscription"
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a subscription"
+        },
+        {
+          "info": {
+            "name": "Update buyer external Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://universe.capchase.com/api/v2/pay/buyers/:id/update-external-id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Id of the buyer"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the external Id of a buyer"
+        },
+        {
+          "info": {
+            "name": "Renew buyer qualification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://universe.capchase.com/api/v2/pay/buyers/:id/renew-qualification",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Id of the buyer"
+              }
+            ]
+          },
+          "docs": "Renews the qualification of a buyer"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

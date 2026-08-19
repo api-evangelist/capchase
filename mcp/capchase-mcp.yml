@@ -2,10 +2,8 @@ generated: '2026-07-18'
 method: derived
 status: candidate
 source: openapi/capchase-pay-openapi.yml
-notes: >-
-  No official hosted/remote Capchase MCP server was found (docs, npm
-  @modelcontextprotocol, MCP registries). The tool list below is a candidate derived
-  one-to-one from the Capchase Pay OpenAPI operations.
+notes: No official hosted/remote Capchase MCP server was found (docs, npm @modelcontextprotocol, MCP registries).
+  The tool list below is a candidate derived one-to-one from the Capchase Pay OpenAPI operations.
 server:
   name: capchase-pay
   transport: http
@@ -37,3 +35,9 @@ tools:
 - name: get_instalment_receipt
   description: Get a signed link to the receipt PDF for a returned instalment.
   source_operation: openapi/capchase-pay-openapi.yml#PayExternalController_getInstalmentReceipt
+deployment:
+  mode: none
+  verified: derived
+  tools: 9
+  checked: '2026-08-12'
+  source: catalog MCP census
