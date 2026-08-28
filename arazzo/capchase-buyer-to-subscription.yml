@@ -11,7 +11,7 @@ info:
   version: 1.0.0
 sourceDescriptions:
 - name: payApi
-  url: ../openapi/capchase-pay-openapi.yml
+  url: ../openapi/capchase-pay-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: qualify-buyer-and-create-subscription
