@@ -1,7 +1,7 @@
 {
   "provider": "capchase",
   "sources": [
-    "capchase-pay-api-openapi.yml"
+    "_original/capchase-pay-openapi.yml"
   ],
   "outputs": [
     "capchase-pay-api-openapi.yml"
@@ -9,6 +9,13 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "capchase-pay-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "capchase-pay-openapi.yml: declared missing tag: Pay",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "capchase-pay-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
