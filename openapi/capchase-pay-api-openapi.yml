@@ -223,19 +223,6 @@ paths:
       - Pay
 components:
   schemas:
-    FeeBipsVo:
-      type: object
-      properties:
-        fee:
-          type: number
-        bips:
-          type: number
-        precision:
-          type: number
-      required:
-      - fee
-      - bips
-      - precision
     BuyerTerms:
       type: object
       properties:
@@ -281,236 +268,127 @@ components:
       - max_duration
       - expiration_date
       - requested_amount
-    CreateBuyerApiDto:
+    FeeBipsVo:
       type: object
       properties:
+        fee:
+          type: number
+        bips:
+          type: number
+        precision:
+          type: number
+      required:
+      - fee
+      - bips
+      - precision
+    SubscriptionItemVo:
+      type: object
+      properties:
+        id:
+          type: string
+          example: Basic Plan
+          description: Name of the subscription item
         name:
           type: string
-          example: Apple
-          description: Name of the buyer company
-        legal_name:
-          type: string
-          example: Apple Inc.
-          description: Legal name of the buyer company
-        website:
-          type: string
-          example: www.apple.com
-          description: Website URL of the buyer company
-        tax_id:
-          type: string
-          example: '123456789'
-          description: Tax ID number
-        country:
-          type: string
-          example: USA
-          enum:
-          - USA
-          - GBR
-          - ESP
-          - AUS
-          - AUT
-          - BEL
-          - CAN
-          - DNK
-          - EST
-          - FIN
-          - FRA
-          - DEU
-          - IRL
-          - ITA
-          - LVA
-          - LTU
-          - NLD
-          - NOR
-          - SWE
-          - other
-          description: Country ISO-3166-1 alpha-3 code
-        state:
+          example: Basic Plan
+          description: Name of the subscription item
+        description:
           type:
           - string
           - 'null'
-          example: CA
-          enum:
-          - AL
-          - AK
-          - AS
-          - AZ
-          - AR
-          - CA
-          - CO
-          - CT
-          - DE
-          - DC
-          - FM
-          - FL
-          - GA
-          - GU
-          - HI
-          - ID
-          - IL
-          - IN
-          - IA
-          - KS
-          - KY
-          - LA
-          - ME
-          - MH
-          - MD
-          - MA
-          - MI
-          - MN
-          - MS
-          - MO
-          - MT
-          - NE
-          - NV
-          - NH
-          - NJ
-          - NM
-          - NY
-          - NC
-          - ND
-          - MP
-          - OH
-          - OK
-          - OR
-          - PW
-          - PA
-          - PR
-          - RI
-          - SC
-          - SD
-          - TN
-          - TX
-          - UT
-          - VT
-          - VI
-          - VA
-          - WA
-          - WV
-          - WI
-          - WY
-          - CA-AB
-          - CA-BC
-          - CA-MB
-          - CA-NB
-          - CA-NL
-          - CA-NS
-          - CA-ON
-          - CA-PE
-          - CA-QC
-          - CA-SK
-          - CA-NT
-          - CA-NU
-          - CA-YT
-          - AU-ACT
-          - AU-NSW
-          - AU-NT
-          - AU-QLD
-          - AU-SA
-          - AU-TAS
-          - AU-VIC
-          - AU-WA
-          description: State (US and Canada only)
-        city:
-          type: string
-          example: San Francisco
-          description: City
-        address_line1:
-          type: string
-          example: 1 Infinite Loop
-          description: Address line 1
-        address_line2:
-          type: string
-          example: Suite 100
-          description: Address line 2
-        postal_code:
-          type: string
-          example: '95014'
-          description: Postal code
-        vendor_notification_emails:
-          description: Vendor notification email addresses
-          example:
-          - billing@example.com
-          - finance@example.com
+          example: This is a basic subscription plan.
+          description: Description of the subscription item
+        amount:
+          type: number
+          example: 1000
+          description: Amount of the subscription item. This is the original amount provided, without any fees.
+      required:
+      - id
+      - name
+      - amount
+    SubscriptionBreakdownVo:
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/OverallBreakdownVo'
+        fee:
+          $ref: '#/components/schemas/FeeBreakdownVo'
+        balances:
           type: array
           items:
-            type: string
-            format: email
-        external_id:
-          type: string
-          description: External ID to identify the buyer in your system. You can use it to reconcile buyers with your records.
-        metadata:
-          type: object
-          description: Metadata of the buyer. A JSON object to store any additional information about the buyer.
+            $ref: '#/components/schemas/SubscriptionInstallmentVo'
+        installments:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubscriptionInstallmentVo'
       required:
-      - name
-      - legal_name
-      - website
-      - country
-      - city
-      - address_line1
-      - postal_code
-    CreateNewSubscriptionParametricItemDto:
+      - amount
+      - fee
+      - balances
+      - installments
+    AmountBreakdownVo:
+      type: object
+      properties:
+        gross:
+          $ref: '#/components/schemas/MoneyVo'
+      required:
+      - gross
+    CreateNewSubscriptionParametricDto:
       type: object
       properties:
         name:
           type: string
-          example: 12 seats
-          description: Name of the item
+          example: MyCompany <> MyBuyer - 12 Months pro plan
+          description: Name of the subscription
         description:
           type: string
-          example: 10$/mo per seat
-          description: Description of the item
-        amount:
-          type: number
-          minimum: 1
-          example: 800000
-          description: Amount of the item, in cents
-        type:
+          example: Yearly pro plan for 12 ppl + 2 admin seats + onboarding
+          description: Description of the subscription. You can add any extra info that helps you and your customer to identify the subscription.
+        buyer_id:
           type: string
-          enum:
-          - PARAMETRIC
-          description: The type of the subscription item schedule. Right now, only PARAMETRIC is supported.
-          example: PARAMETRIC
-        start_date:
-          format: date-time
+          example: 11111111-2222-3333-8444-555555555555
+          description: Id of the buyer of the subscription
+        items:
+          minItems: 1
+          maxItems: 100
+          description: Subscription items to be created.
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateNewSubscriptionParametricItemDto'
+        vendor_notification_emails:
+          example:
+          - accounting@your_company.com
+          description: Email addresses where you will receive the notifications related to the subscription
+          type: array
+          items:
+            type: string
+        buyer_notification_emails:
+          example:
+          - buyer@buyer_company.com
+          description: Email addresses where your buyer receive the notifications related to the subscription
+          type: array
+          items:
+            type: string
+        external_id:
           type: string
-          example: '2024-11-22'
-          description: Date of the first charge
-        period:
-          type: string
-          enum:
-          - ONE_TIME
-          - MONTHS
-          - QUARTERS
-          - SEMI_ANNUAL
-          - ANNUAL
-          description: The frequency of the subscription item schedule. It can be ONE_TIME, MONTHS, or QUARTERS
-          example: MONTHS
-        duration:
-          type: number
-          minimum: 1
-          example: 12
-          description: Duration of the subscription, in the period specified
-        net_term:
-          enum:
-          - NET_30
-          - NET_60
-          - NET_90
-          - NET_120
-          - NET_150
-          - NET_180
-          type: string
-          example: NET_30
-          description: Net terms of the item. Valid values are NET_30, NET_60, NET_90, NET_120, NET_150 and NET_180.
+          example: ABC00014
+          description: Any internal identifier you want to use to track the subscription in your system
+        metadata:
+          type: object
+          description: External metadata to be used by systems outside Capchase, like an external API.
       required:
       - name
-      - amount
-      - type
-      - start_date
-      - period
-      - duration
+      - description
+      - buyer_id
+      - items
+    InstalmentReceiptResponseVo:
+      type: object
+      properties:
+        url:
+          type: string
+          description: Signed link to the receipt PDF for the returned instalment.
+      required:
+      - url
     FeeBreakdownVo:
       type: object
       properties:
@@ -717,6 +595,35 @@ components:
       - amount
       - currency
       - precision
+    SubscriptionInstallmentVo:
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/AmountBreakdownVo'
+        date:
+          type:
+          - string
+          - 'null'
+          example: '2025-05-22T10:09:25.160Z'
+          description: Due date of the installment/balance
+      required:
+      - amount
+      - date
+    OverallBreakdownVo:
+      type: object
+      properties:
+        buyer_gross:
+          $ref: '#/components/schemas/MoneyVo'
+      required:
+      - buyer_gross
+    UpdateBuyerExternalIdRequestDto:
+      type: object
+      properties:
+        external_id:
+          type: string
+          description: External ID of the buyer
+      required:
+      - external_id
     BuyerResponseDto:
       type: object
       properties:
@@ -828,6 +735,66 @@ components:
       - external_id
       - metadata
       - terms
+    CreateNewSubscriptionParametricItemDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 12 seats
+          description: Name of the item
+        description:
+          type: string
+          example: 10$/mo per seat
+          description: Description of the item
+        amount:
+          type: number
+          minimum: 1
+          example: 800000
+          description: Amount of the item, in cents
+        type:
+          type: string
+          enum:
+          - PARAMETRIC
+          description: The type of the subscription item schedule. Right now, only PARAMETRIC is supported.
+          example: PARAMETRIC
+        start_date:
+          format: date-time
+          type: string
+          example: '2024-11-22'
+          description: Date of the first charge
+        period:
+          type: string
+          enum:
+          - ONE_TIME
+          - MONTHS
+          - QUARTERS
+          - SEMI_ANNUAL
+          - ANNUAL
+          description: The frequency of the subscription item schedule. It can be ONE_TIME, MONTHS, or QUARTERS
+          example: MONTHS
+        duration:
+          type: number
+          minimum: 1
+          example: 12
+          description: Duration of the subscription, in the period specified
+        net_term:
+          enum:
+          - NET_30
+          - NET_60
+          - NET_90
+          - NET_120
+          - NET_150
+          - NET_180
+          type: string
+          example: NET_30
+          description: Net terms of the item. Valid values are NET_30, NET_60, NET_90, NET_120, NET_150 and NET_180.
+      required:
+      - name
+      - amount
+      - type
+      - start_date
+      - period
+      - duration
     SubscriptionApiVo:
       type: object
       properties:
@@ -984,143 +951,176 @@ components:
       - status
       - created_at
       - updated_at
-    AmountBreakdownVo:
-      type: object
-      properties:
-        gross:
-          $ref: '#/components/schemas/MoneyVo'
-      required:
-      - gross
-    CreateNewSubscriptionParametricDto:
+    CreateBuyerApiDto:
       type: object
       properties:
         name:
           type: string
-          example: MyCompany <> MyBuyer - 12 Months pro plan
-          description: Name of the subscription
-        description:
+          example: Apple
+          description: Name of the buyer company
+        legal_name:
           type: string
-          example: Yearly pro plan for 12 ppl + 2 admin seats + onboarding
-          description: Description of the subscription. You can add any extra info that helps you and your customer to identify the subscription.
-        buyer_id:
+          example: Apple Inc.
+          description: Legal name of the buyer company
+        website:
           type: string
-          example: 11111111-2222-3333-8444-555555555555
-          description: Id of the buyer of the subscription
-        items:
-          minItems: 1
-          maxItems: 100
-          description: Subscription items to be created.
-          type: array
-          items:
-            $ref: '#/components/schemas/CreateNewSubscriptionParametricItemDto'
+          example: www.apple.com
+          description: Website URL of the buyer company
+        tax_id:
+          type: string
+          example: '123456789'
+          description: Tax ID number
+        country:
+          type: string
+          example: USA
+          enum:
+          - USA
+          - GBR
+          - ESP
+          - AUS
+          - AUT
+          - BEL
+          - CAN
+          - DNK
+          - EST
+          - FIN
+          - FRA
+          - DEU
+          - IRL
+          - ITA
+          - LVA
+          - LTU
+          - NLD
+          - NOR
+          - SWE
+          - other
+          description: Country ISO-3166-1 alpha-3 code
+        state:
+          type:
+          - string
+          - 'null'
+          example: CA
+          enum:
+          - AL
+          - AK
+          - AS
+          - AZ
+          - AR
+          - CA
+          - CO
+          - CT
+          - DE
+          - DC
+          - FM
+          - FL
+          - GA
+          - GU
+          - HI
+          - ID
+          - IL
+          - IN
+          - IA
+          - KS
+          - KY
+          - LA
+          - ME
+          - MH
+          - MD
+          - MA
+          - MI
+          - MN
+          - MS
+          - MO
+          - MT
+          - NE
+          - NV
+          - NH
+          - NJ
+          - NM
+          - NY
+          - NC
+          - ND
+          - MP
+          - OH
+          - OK
+          - OR
+          - PW
+          - PA
+          - PR
+          - RI
+          - SC
+          - SD
+          - TN
+          - TX
+          - UT
+          - VT
+          - VI
+          - VA
+          - WA
+          - WV
+          - WI
+          - WY
+          - CA-AB
+          - CA-BC
+          - CA-MB
+          - CA-NB
+          - CA-NL
+          - CA-NS
+          - CA-ON
+          - CA-PE
+          - CA-QC
+          - CA-SK
+          - CA-NT
+          - CA-NU
+          - CA-YT
+          - AU-ACT
+          - AU-NSW
+          - AU-NT
+          - AU-QLD
+          - AU-SA
+          - AU-TAS
+          - AU-VIC
+          - AU-WA
+          description: State (US and Canada only)
+        city:
+          type: string
+          example: San Francisco
+          description: City
+        address_line1:
+          type: string
+          example: 1 Infinite Loop
+          description: Address line 1
+        address_line2:
+          type: string
+          example: Suite 100
+          description: Address line 2
+        postal_code:
+          type: string
+          example: '95014'
+          description: Postal code
         vendor_notification_emails:
+          description: Vendor notification email addresses
           example:
-          - accounting@your_company.com
-          description: Email addresses where you will receive the notifications related to the subscription
+          - billing@example.com
+          - finance@example.com
           type: array
           items:
             type: string
-        buyer_notification_emails:
-          example:
-          - buyer@buyer_company.com
-          description: Email addresses where your buyer receive the notifications related to the subscription
-          type: array
-          items:
-            type: string
+            format: email
         external_id:
           type: string
-          example: ABC00014
-          description: Any internal identifier you want to use to track the subscription in your system
+          description: External ID to identify the buyer in your system. You can use it to reconcile buyers with your records.
         metadata:
           type: object
-          description: External metadata to be used by systems outside Capchase, like an external API.
+          description: Metadata of the buyer. A JSON object to store any additional information about the buyer.
       required:
       - name
-      - description
-      - buyer_id
-      - items
-    UpdateBuyerExternalIdRequestDto:
-      type: object
-      properties:
-        external_id:
-          type: string
-          description: External ID of the buyer
-      required:
-      - external_id
-    SubscriptionItemVo:
-      type: object
-      properties:
-        id:
-          type: string
-          example: Basic Plan
-          description: Name of the subscription item
-        name:
-          type: string
-          example: Basic Plan
-          description: Name of the subscription item
-        description:
-          type:
-          - string
-          - 'null'
-          example: This is a basic subscription plan.
-          description: Description of the subscription item
-        amount:
-          type: number
-          example: 1000
-          description: Amount of the subscription item. This is the original amount provided, without any fees.
-      required:
-      - id
-      - name
-      - amount
-    OverallBreakdownVo:
-      type: object
-      properties:
-        buyer_gross:
-          $ref: '#/components/schemas/MoneyVo'
-      required:
-      - buyer_gross
-    SubscriptionBreakdownVo:
-      type: object
-      properties:
-        amount:
-          $ref: '#/components/schemas/OverallBreakdownVo'
-        fee:
-          $ref: '#/components/schemas/FeeBreakdownVo'
-        balances:
-          type: array
-          items:
-            $ref: '#/components/schemas/SubscriptionInstallmentVo'
-        installments:
-          type: array
-          items:
-            $ref: '#/components/schemas/SubscriptionInstallmentVo'
-      required:
-      - amount
-      - fee
-      - balances
-      - installments
-    InstalmentReceiptResponseVo:
-      type: object
-      properties:
-        url:
-          type: string
-          description: Signed link to the receipt PDF for the returned instalment.
-      required:
-      - url
-    SubscriptionInstallmentVo:
-      type: object
-      properties:
-        amount:
-          $ref: '#/components/schemas/AmountBreakdownVo'
-        date:
-          type:
-          - string
-          - 'null'
-          example: '2025-05-22T10:09:25.160Z'
-          description: Due date of the installment/balance
-      required:
-      - amount
-      - date
+      - legal_name
+      - website
+      - country
+      - city
+      - address_line1
+      - postal_code
   securitySchemes:
     basicAuth:
       type: http
