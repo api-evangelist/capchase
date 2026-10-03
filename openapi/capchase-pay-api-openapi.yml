@@ -223,64 +223,6 @@ paths:
       - Pay
 components:
   schemas:
-    BuyerTerms:
-      type: object
-      properties:
-        min_amount:
-          type:
-          - number
-          - 'null'
-          description: Minimum amount of the subscriptions created for this buyer
-        max_amount:
-          type:
-          - number
-          - 'null'
-          description: Maximum amount of the subscriptions created for this buyer
-        max_duration:
-          type:
-          - number
-          - 'null'
-          description: Maximum duration of the subscriptions created for this buyer
-        expiration_date:
-          format: date-time
-          type:
-          - string
-          - 'null'
-          description: Expiration date of these terms
-        available_credit_limit:
-          type:
-          - number
-          - 'null'
-          description: Available credit limit for the buyer in the smallest currency unit (e.g. cents). Null when not available.
-        requested_amount:
-          type:
-          - number
-          - 'null'
-          description: Originally-requested amount captured at qualification time, in the smallest currency unit (e.g. cents). Null when the buyer was qualified without a deal-size estimate.
-        limit_raise_request_status:
-          type:
-          - string
-          - 'null'
-          description: Status of the latest LimitRaiseRequest for this (buyer, vendor) pair, if any. One of PENDING, APPROVED, FINANCIALS_REQUIRED, REJECTED. Null when there is no request on file.
-      required:
-      - min_amount
-      - max_amount
-      - max_duration
-      - expiration_date
-      - requested_amount
-    FeeBipsVo:
-      type: object
-      properties:
-        fee:
-          type: number
-        bips:
-          type: number
-        precision:
-          type: number
-      required:
-      - fee
-      - bips
-      - precision
     SubscriptionItemVo:
       type: object
       properties:
@@ -306,26 +248,6 @@ components:
       - id
       - name
       - amount
-    SubscriptionBreakdownVo:
-      type: object
-      properties:
-        amount:
-          $ref: '#/components/schemas/OverallBreakdownVo'
-        fee:
-          $ref: '#/components/schemas/FeeBreakdownVo'
-        balances:
-          type: array
-          items:
-            $ref: '#/components/schemas/SubscriptionInstallmentVo'
-        installments:
-          type: array
-          items:
-            $ref: '#/components/schemas/SubscriptionInstallmentVo'
-      required:
-      - amount
-      - fee
-      - balances
-      - installments
     AmountBreakdownVo:
       type: object
       properties:
@@ -333,6 +255,100 @@ components:
           $ref: '#/components/schemas/MoneyVo'
       required:
       - gross
+    SubscriptionInstallmentVo:
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/AmountBreakdownVo'
+        date:
+          type:
+          - string
+          - 'null'
+          example: '2025-05-22T10:09:25.160Z'
+          description: Due date of the installment/balance
+      required:
+      - amount
+      - date
+    FeeBreakdownVo:
+      type: object
+      properties:
+        total:
+          $ref: '#/components/schemas/FeeBipsVo'
+      required:
+      - total
+    FeeBipsVo:
+      type: object
+      properties:
+        fee:
+          type: number
+        bips:
+          type: number
+        precision:
+          type: number
+      required:
+      - fee
+      - bips
+      - precision
+    CreateNewSubscriptionParametricItemDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 12 seats
+          description: Name of the item
+        description:
+          type: string
+          example: 10$/mo per seat
+          description: Description of the item
+        amount:
+          type: number
+          minimum: 1
+          example: 800000
+          description: Amount of the item, in cents
+        type:
+          type: string
+          enum:
+          - PARAMETRIC
+          description: The type of the subscription item schedule. Right now, only PARAMETRIC is supported.
+          example: PARAMETRIC
+        start_date:
+          format: date-time
+          type: string
+          example: '2024-11-22'
+          description: Date of the first charge
+        period:
+          type: string
+          enum:
+          - ONE_TIME
+          - MONTHS
+          - QUARTERS
+          - SEMI_ANNUAL
+          - ANNUAL
+          description: The frequency of the subscription item schedule. It can be ONE_TIME, MONTHS, or QUARTERS
+          example: MONTHS
+        duration:
+          type: number
+          minimum: 1
+          example: 12
+          description: Duration of the subscription, in the period specified
+        net_term:
+          enum:
+          - NET_30
+          - NET_60
+          - NET_90
+          - NET_120
+          - NET_150
+          - NET_180
+          type: string
+          example: NET_30
+          description: Net terms of the item. Valid values are NET_30, NET_60, NET_90, NET_120, NET_150 and NET_180.
+      required:
+      - name
+      - amount
+      - type
+      - start_date
+      - period
+      - duration
     CreateNewSubscriptionParametricDto:
       type: object
       properties:
@@ -381,6 +397,26 @@ components:
       - description
       - buyer_id
       - items
+    SubscriptionBreakdownVo:
+      type: object
+      properties:
+        amount:
+          $ref: '#/components/schemas/OverallBreakdownVo'
+        fee:
+          $ref: '#/components/schemas/FeeBreakdownVo'
+        balances:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubscriptionInstallmentVo'
+        installments:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubscriptionInstallmentVo'
+      required:
+      - amount
+      - fee
+      - balances
+      - installments
     InstalmentReceiptResponseVo:
       type: object
       properties:
@@ -389,13 +425,117 @@ components:
           description: Signed link to the receipt PDF for the returned instalment.
       required:
       - url
-    FeeBreakdownVo:
+    BuyerResponseDto:
       type: object
       properties:
-        total:
-          $ref: '#/components/schemas/FeeBipsVo'
+        id:
+          type: string
+          description: UUID of the buyer
+        name:
+          type: string
+          description: Name of the buyer
+        legal_name:
+          type: string
+          description: Legal name of the buyer, used for KYB and compliance checks
+        tax_id:
+          type:
+          - string
+          - 'null'
+          description: Buyer's tax id
+        website:
+          type:
+          - string
+          - 'null'
+          description: Buyer's website
+        kyb_status:
+          type: string
+          description: Status of the compliance checks. Currently, the retrieved statuses are APPROVED, REJECTED and PENDING
+        kyb_rejected_reasons:
+          description: Rejection reasons of the compliance checks, in a readable format.
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        created_at:
+          format: date-time
+          type: string
+          description: Creation date in ISO-8601
+        country_iso3:
+          type: string
+          description: Country ISO-3166-1 alpha-3 code of the buyer
+        state:
+          type:
+          - string
+          - 'null'
+          description: State, only applicable to US and Canada
+        city:
+          type:
+          - string
+          - 'null'
+          description: City of the buyer
+        address_line1:
+          type:
+          - string
+          - 'null'
+          description: First line of the buyer's address
+        address_line2:
+          type:
+          - string
+          - 'null'
+          description: Second line of the buyer's address
+        postal_code:
+          type:
+          - string
+          - 'null'
+          description: Postal code of the buyer
+        currency:
+          type: string
+          description: Currency of the buyer
+        status:
+          type:
+          - string
+          - 'null'
+          description: Status of the buyer in our system. It can be ACTIVE or BLOCKED
+        external_id:
+          type:
+          - string
+          - 'null'
+          description: External ID of the buyer. You can use it to identify a buyer in your system.
+        metadata:
+          type:
+          - object
+          - 'null'
+          description: Metadata of the buyer. It is a JSON object that you can use to store any additional information about the buyer.
+        terms:
+          description: Terms of the buyer
+          allOf:
+          - $ref: '#/components/schemas/BuyerTerms'
+        credit_quality:
+          type:
+          - string
+          - 'null'
+          description: 'Credit quality tier of the buyer, derived from credit rating. Possible values: "preferred", "qualified", "declined", or null'
       required:
-      - total
+      - id
+      - name
+      - legal_name
+      - tax_id
+      - website
+      - kyb_status
+      - kyb_rejected_reasons
+      - created_at
+      - country_iso3
+      - state
+      - city
+      - address_line1
+      - address_line2
+      - postal_code
+      - currency
+      - status
+      - external_id
+      - metadata
+      - terms
     MoneyVo:
       type: object
       properties:
@@ -595,27 +735,6 @@ components:
       - amount
       - currency
       - precision
-    SubscriptionInstallmentVo:
-      type: object
-      properties:
-        amount:
-          $ref: '#/components/schemas/AmountBreakdownVo'
-        date:
-          type:
-          - string
-          - 'null'
-          example: '2025-05-22T10:09:25.160Z'
-          description: Due date of the installment/balance
-      required:
-      - amount
-      - date
-    OverallBreakdownVo:
-      type: object
-      properties:
-        buyer_gross:
-          $ref: '#/components/schemas/MoneyVo'
-      required:
-      - buyer_gross
     UpdateBuyerExternalIdRequestDto:
       type: object
       properties:
@@ -624,177 +743,6 @@ components:
           description: External ID of the buyer
       required:
       - external_id
-    BuyerResponseDto:
-      type: object
-      properties:
-        id:
-          type: string
-          description: UUID of the buyer
-        name:
-          type: string
-          description: Name of the buyer
-        legal_name:
-          type: string
-          description: Legal name of the buyer, used for KYB and compliance checks
-        tax_id:
-          type:
-          - string
-          - 'null'
-          description: Buyer's tax id
-        website:
-          type:
-          - string
-          - 'null'
-          description: Buyer's website
-        kyb_status:
-          type: string
-          description: Status of the compliance checks. Currently, the retrieved statuses are APPROVED, REJECTED and PENDING
-        kyb_rejected_reasons:
-          description: Rejection reasons of the compliance checks, in a readable format.
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        created_at:
-          format: date-time
-          type: string
-          description: Creation date in ISO-8601
-        country_iso3:
-          type: string
-          description: Country ISO-3166-1 alpha-3 code of the buyer
-        state:
-          type:
-          - string
-          - 'null'
-          description: State, only applicable to US and Canada
-        city:
-          type:
-          - string
-          - 'null'
-          description: City of the buyer
-        address_line1:
-          type:
-          - string
-          - 'null'
-          description: First line of the buyer's address
-        address_line2:
-          type:
-          - string
-          - 'null'
-          description: Second line of the buyer's address
-        postal_code:
-          type:
-          - string
-          - 'null'
-          description: Postal code of the buyer
-        currency:
-          type: string
-          description: Currency of the buyer
-        status:
-          type:
-          - string
-          - 'null'
-          description: Status of the buyer in our system. It can be ACTIVE or BLOCKED
-        external_id:
-          type:
-          - string
-          - 'null'
-          description: External ID of the buyer. You can use it to identify a buyer in your system.
-        metadata:
-          type:
-          - object
-          - 'null'
-          description: Metadata of the buyer. It is a JSON object that you can use to store any additional information about the buyer.
-        terms:
-          description: Terms of the buyer
-          allOf:
-          - $ref: '#/components/schemas/BuyerTerms'
-        credit_quality:
-          type:
-          - string
-          - 'null'
-          description: 'Credit quality tier of the buyer, derived from credit rating. Possible values: "preferred", "qualified", "declined", or null'
-      required:
-      - id
-      - name
-      - legal_name
-      - tax_id
-      - website
-      - kyb_status
-      - kyb_rejected_reasons
-      - created_at
-      - country_iso3
-      - state
-      - city
-      - address_line1
-      - address_line2
-      - postal_code
-      - currency
-      - status
-      - external_id
-      - metadata
-      - terms
-    CreateNewSubscriptionParametricItemDto:
-      type: object
-      properties:
-        name:
-          type: string
-          example: 12 seats
-          description: Name of the item
-        description:
-          type: string
-          example: 10$/mo per seat
-          description: Description of the item
-        amount:
-          type: number
-          minimum: 1
-          example: 800000
-          description: Amount of the item, in cents
-        type:
-          type: string
-          enum:
-          - PARAMETRIC
-          description: The type of the subscription item schedule. Right now, only PARAMETRIC is supported.
-          example: PARAMETRIC
-        start_date:
-          format: date-time
-          type: string
-          example: '2024-11-22'
-          description: Date of the first charge
-        period:
-          type: string
-          enum:
-          - ONE_TIME
-          - MONTHS
-          - QUARTERS
-          - SEMI_ANNUAL
-          - ANNUAL
-          description: The frequency of the subscription item schedule. It can be ONE_TIME, MONTHS, or QUARTERS
-          example: MONTHS
-        duration:
-          type: number
-          minimum: 1
-          example: 12
-          description: Duration of the subscription, in the period specified
-        net_term:
-          enum:
-          - NET_30
-          - NET_60
-          - NET_90
-          - NET_120
-          - NET_150
-          - NET_180
-          type: string
-          example: NET_30
-          description: Net terms of the item. Valid values are NET_30, NET_60, NET_90, NET_120, NET_150 and NET_180.
-      required:
-      - name
-      - amount
-      - type
-      - start_date
-      - period
-      - duration
     SubscriptionApiVo:
       type: object
       properties:
@@ -951,6 +899,58 @@ components:
       - status
       - created_at
       - updated_at
+    BuyerTerms:
+      type: object
+      properties:
+        min_amount:
+          type:
+          - number
+          - 'null'
+          description: Minimum amount of the subscriptions created for this buyer
+        max_amount:
+          type:
+          - number
+          - 'null'
+          description: Maximum amount of the subscriptions created for this buyer
+        max_duration:
+          type:
+          - number
+          - 'null'
+          description: Maximum duration of the subscriptions created for this buyer
+        expiration_date:
+          format: date-time
+          type:
+          - string
+          - 'null'
+          description: Expiration date of these terms
+        available_credit_limit:
+          type:
+          - number
+          - 'null'
+          description: Available credit limit for the buyer in the smallest currency unit (e.g. cents). Null when not available.
+        requested_amount:
+          type:
+          - number
+          - 'null'
+          description: Originally-requested amount captured at qualification time, in the smallest currency unit (e.g. cents). Null when the buyer was qualified without a deal-size estimate.
+        limit_raise_request_status:
+          type:
+          - string
+          - 'null'
+          description: Status of the latest LimitRaiseRequest for this (buyer, vendor) pair, if any. One of PENDING, APPROVED, FINANCIALS_REQUIRED, REJECTED. Null when there is no request on file.
+      required:
+      - min_amount
+      - max_amount
+      - max_duration
+      - expiration_date
+      - requested_amount
+    OverallBreakdownVo:
+      type: object
+      properties:
+        buyer_gross:
+          $ref: '#/components/schemas/MoneyVo'
+      required:
+      - buyer_gross
     CreateBuyerApiDto:
       type: object
       properties:
