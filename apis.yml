@@ -46,7 +46,7 @@ accessModel:
   method: derived
 specificationVersion: '0.23'
 created: '2026-07-17'
-modified: '2026-07-18'
+modified: '2026-10-06'
 image: https://cdn.prod.website-files.com/6146543ab50f167ae088b201/61701898ec2756274d6e8665_256px.png
 x-docs-platform: readme
 x-docs-platform-confidence: high
@@ -102,6 +102,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- url: https://www.capchase.com/blog/rss.xml
+  type: BlogRSS
 - type: X-MCPServerCandidate
   url: mcp/capchase-mcp.yml
   note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
