@@ -64,6 +64,125 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Capchase is a company surfaced as a portfolio company of qed-investors and added to the API Evangelist network as a stub for enrichment. Sector: fintech. This profile is a lead awaiting the enrichment pipeline.
+Capchase provides embedded financing and B2B payment infrastructure for software and hardware vendors. Its Capchase Pay API lets vendors offer buyers flexible installment payment terms at checkout while the vendor is paid the full contract value upfront. Vendors create buyer companies, run automated KYB/underwriting qualification, create subscriptions that generate hosted payment links, list and retrieve subscription status, and pull instalment receipts. The v2 REST API is served from universe.capchase.com, uses HTTP Basic authentication (clientId / clientSecret), ships a Playground environment, and is documented on a ReadMe developer portal with an OpenAPI reference and an AI-agent llms.txt index. Sector: fintech; backed by QED Investors.
 
-Backed by: qed-investors — https://www.capchase.com/
+**Areas:** Company · Fintech · Payments · Embedded Finance · Financing · B2B SaaS · Revenue Financing · Buy Now Pay Later · KYB · Underwriting
+
+## Capchase on APIs.io
+
+Everything profiled for Capchase is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/capchase/](https://apis.io/providers/capchase/)** — or go straight to one of the APIs or properties below.
+
+### APIs (1)
+
+- [Capchase Pay API](https://apis.io/apis/capchase/capchase-pay-api/) — The Pay API from Capchase — 8 operation(s) for pay.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Arazzo workflows (1)
+
+Multi-step workflows that chain operations into a business task.
+
+- [Capchase Qualify a Buyer and Create a Financed Subscription](https://apis.io/arazzos/capchase/capchase-buyer-to-subscription/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [capchase-pay](https://apis.io/servers/capchase/capchase-pay/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Capchase Agentic Access](https://apis.io/agentic-access/capchase/capchase-agentic-access/)
+
+#### Collections (1)
+
+Postman and Open Collection request collections.
+
+- [Capchase Pay API](https://apis.io/collections/capchase/open-capchase-pay-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Capchase Pay Overlay](https://apis.io/overlays/capchase/capchase-pay-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Capchase Authentication](https://apis.io/security/capchase/capchase-authentication/)
+- [Capchase Domain Security](https://apis.io/security/capchase/capchase-domain-security/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.capchase.com/)
+- [Documentation](https://capchase.readme.io/docs)
+- [Getting started](https://capchase.readme.io/docs/get-started)
+- [API reference](https://capchase.readme.io/reference)
+- [Sign up](https://app.capchase.com/login)
+- [Blog](https://www.capchase.com/blog)
+- [Compliance](https://www.capchase.com/)
+- [Terms of service](https://www.capchase.com/terms-of-use)
+- [Privacy policy](https://www.capchase.com/privacy-policy)
+- [GitHub](https://github.com/Capchase)
+
+## API Evangelist rating
+
+**Kin Score 40.8** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 47.1 |
+| Contract governance | 18.2 |
+| Operational transparency | 6.6 |
+| Developer ergonomics | 47.0 |
+| Access clarity | 28.9 |
+
+**Agent readiness 23.6** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 26.3** — Insurance
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/capchase/](https://apis.io/providers/capchase/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Capchase: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/capchase/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
